@@ -1,0 +1,155 @@
+/* Importar Poppins desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Aplicar Poppins a todo el cuerpo */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
+
+.login-container {
+  display: flex;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 8px; 
+}
+
+.login-image {
+  display: none;
+}
+
+.login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.login-form {
+  padding: 2rem;
+  width: 100%;
+  max-width: 430px;
+  background-color: #060a0c;
+   
+}
+
+.login-form h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.tab-switch {
+  position: relative;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.tab-switch button {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.tab-switch button.active {
+  color: #fff;
+}
+
+.tab-indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  background: linear-gradient(to right, #FFB3DB);
+  border-radius: 9999px;
+  transition: left 0.3s;
+}
+
+.tab-indicator.left {
+  left: 0;
+}
+
+.tab-indicator.right {
+  left: 50%;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-bottom: 4px solid #d1d5db;
+  background-color: #4f4d4d; 
+  outline: none;
+  font-size: 1rem;
+  border-radius: 8px; 
+
+}
+
+.login-form input:focus {
+  border-color: #FFB3DB;
+}
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+
+.forgot-password a {
+  color: #FFB3DB;
+  text-decoration: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: linear-gradient(to right, #FFB3DB);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+.switch-mode {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.switch-mode a {
+  color: #FFB3DB;
+  text-decoration: underline;
+}
+
+/* Mostrar imagen en pantallas medianas en adelante */
+@media (min-width: 768px) {
+  .login-image {
+    display: block;
+    width: 50%;
+  }
+}

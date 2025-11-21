@@ -1,0 +1,25 @@
+.buttons-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.custom-button {
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  font-weight: 200;
+  text-transform: capitalize;
+  cursor: pointer;
+  border: 1px solid #707070;
+  border-radius: 9999px;
+  padding: 10px 25px;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-button:hover {
+  border-color: #ffffff;
+}

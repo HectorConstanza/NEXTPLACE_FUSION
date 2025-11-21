@@ -1,0 +1,270 @@
+/* ============ ÁREA AISLADA DEL FLUJO GET TICKETS ============ */
+.get-tickets {
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  background-color: #000;
+  line-height: 1.5;
+  min-height: 100svh;
+  width: 100%;
+  overflow-x: hidden;
+  display: block;
+}
+
+/* Reset */
+.get-tickets * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* -------- Contenedores -------- */
+.get-tickets .gt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+/* -------- Encabezado -------- */
+.get-tickets .event-header {
+  background: rgb(20,20,20);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.08);
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.get-tickets .event-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-bottom: 1px solid #707070;
+}
+
+.get-tickets .event-info { padding: 1.8rem 2rem; }
+
+.get-tickets .event-info h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.get-tickets .event-info p {
+  font-weight: 300;
+  color: #ffffffcc;
+  margin-bottom: 1rem;
+}
+
+.get-tickets .event-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* -------- Sección tickets -------- */
+.get-tickets .tickets-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1100px;
+  width: 90%;
+  gap: 2rem;
+}
+
+.get-tickets .tickets-left { flex: 2; }
+
+/* -------- Steps -------- */
+.get-tickets .steps {
+  display: flex;
+  flex-wrap: wrap; /* Responsivo */
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.get-tickets .steps span {
+  color: #ccc;
+  position: relative;
+  padding-bottom: 0.2rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.get-tickets .steps span:hover {
+  color: #fff;
+}
+
+.get-tickets .steps .active-step {
+  color: #fff;
+}
+
+.get-tickets .steps .active-step::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0;
+  height: 2px; width: 100%;
+  background: #fff;
+}
+
+/* -------- Apartado extra de detalles -------- */
+.get-tickets .event-extra-details {
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  border: 1px solid #707070;
+  border-radius: 12px;
+  background: rgb(25,25,25);
+  box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+}
+
+.get-tickets .event-extra-details h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.get-tickets .event-extra-details p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* -------- Card de ticket -------- */
+.get-tickets .ticket-card {
+  background: rgb(30,30,30);
+  border-radius: 12px;
+  padding: 1.5rem 1.8rem;
+  box-shadow: 0 4px 8px rgba(255,255,255,0.05);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #707070;
+}
+
+.get-tickets .ticket-card h4 {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.get-tickets .ticket-card p {
+  color: #ffffffaa;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.get-tickets .available {
+  display: inline-block;
+  background: #ffb3db;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #fff;
+}
+
+.get-tickets .ticket-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.get-tickets .price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.get-tickets .quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid #707070;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.get-tickets .quantity-control button {
+  border: none;
+  background: rgb(50,50,50);
+  color: #fff;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.get-tickets .quantity-control span {
+  padding: 0.4rem 1rem;
+  min-width: 24px;
+  text-align: center;
+  color: #fff;
+}
+
+/* -------- Order summary -------- */
+.get-tickets .order-summary {
+  background: rgb(30,30,30);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(255,255,255,0.05);
+  padding: 1.8rem;
+  flex: 1;
+  height: fit-content;
+}
+
+.get-tickets .order-summary h3 { margin-bottom: 1rem; color: #fff; }
+
+.get-tickets .continue-btn {
+  background-color: #fff;
+  color: #181717;
+  border: 1px solid #707070;
+  border-radius: 8px;
+  padding: 0.8rem;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 2rem;
+}
+
+.get-tickets .continue-btn:hover {
+  background-color: #eaeaea;
+}
+
+.get-tickets .secure-info {
+  color: #ccc;
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+}
+
+.get-tickets .total-section {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* -------- Responsive -------- */
+@media (max-width: 768px) {
+  .get-tickets .tickets-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .get-tickets .ticket-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .get-tickets .ticket-actions { margin-top: 0.5rem; }
+  .get-tickets .order-summary { width: 100%; }
+  .get-tickets .steps {
+    justify-content: space-around;
+    gap: 1rem;
+  }
+}

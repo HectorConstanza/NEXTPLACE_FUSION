@@ -1,0 +1,89 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 300px;      /* ancho fijo */
+  height: 550px;     /* altura fija */
+  position: relative;
+  box-sizing: border-box;
+  margin: 15px;      /* espacio externo entre cards */
+}
+
+.tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0 0 0 10px;
+  z-index: 10;
+}
+
+.card-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 30px 15px 10px 15px; /* arriba, lados, abajo */
+  gap: 10px;                     /* espacio entre elementos internos */
+}
+
+.title {
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.date {
+  font-weight: 600;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.reserve-button {
+  margin-top: auto;
+  padding: 8px 15px;
+  font-weight: 800;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  transition: background-color 0.2s;
+}
+
+.reserve-button:hover {
+  background-color: #ddd;
+}
+
+/* Opcional: contenedor responsive */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 20px;  /* espacio entre columnas */
+  row-gap: 50px;     /* espacio entre filas */
+  justify-items: center;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+
+@media (max-width: 1024px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por fila en tablet */
+  }
+}
+
+@media (max-width: 640px) {
+  .cards-container {
+    grid-template-columns: 1fr; /* 1 card por fila en móvil */
+  }
+}

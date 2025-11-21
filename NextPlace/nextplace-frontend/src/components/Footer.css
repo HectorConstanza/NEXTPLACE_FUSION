@@ -1,0 +1,60 @@
+.footer {
+  background-color: #111;
+  color: #fff;
+  padding: 40px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-logo {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.social-icons a {
+  margin-right: 15px;
+  color: #fff;
+  transition: color 0.2s;
+}
+
+.social-icons a:hover {
+  color: #f0c040; /* efecto hover dorado fresa */
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #fff;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #f0c040;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 500;
+  color: #aaa;
+}

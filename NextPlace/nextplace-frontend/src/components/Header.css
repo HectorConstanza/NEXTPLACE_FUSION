@@ -1,0 +1,58 @@
+header {
+  display: block;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 0;
+  position: relative;
+}
+
+.titles {
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  font-size: 50px;
+  max-width: fit-content;
+  margin: 0 auto;
+}
+
+.changeColor,
+.highlightWord {
+  color: #ffb3db;
+  display: inline-block;
+}
+
+.text {
+  font-weight: 200;
+  line-height: 1.5;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.star {
+  position: absolute;
+  color: #f2cf33;
+  font-size: 40px;
+}
+
+.star-3 {
+  top: 50px;
+  left: 740px;
+  transform: rotate(10deg);
+  font-size: 30px;
+}
+
+.star-2 {
+  top: 90px;
+  left: 720px;
+  transform: rotate(45deg);
+  font-size: 40px;
+}
+
+.star-1 {
+  top: 130px;
+  left: 740px;
+  transform: rotate(80deg);
+  font-size: 50px;
+}

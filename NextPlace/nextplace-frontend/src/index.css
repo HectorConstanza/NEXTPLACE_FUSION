@@ -1,0 +1,28 @@
+/* src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;700;800&display=swap');
+@import "tailwindcss";
+
+/* Global */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0f0f0f;
+  color: white;
+}
+
+/* Botón Sign In */
+.sign-in-button {
+  background-color: #7CDAF9;
+  color: black;
+  border: none;
+  border-radius: 9999px;
+  padding: 8px 18px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.sign-in-button:hover {
+  background-color: #389acb;
+}
