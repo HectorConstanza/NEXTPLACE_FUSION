@@ -1,0 +1,25 @@
+{
+  "name": "nextplace-backend-pmv",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "express-validator": "^7.3.0",
+    "jsonwebtoken": "^9.0.0",
+    "mysql2": "^3.9.4",
+    "nodemailer": "^7.0.10",
+    "sequelize": "^6.37.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

@@ -1,0 +1,174 @@
+{
+	"info": {
+		"_postman_id": "22bb9de8-d89c-4c1d-9d06-7b42577e71bc",
+		"name": "NextPlace API",
+		"description": "Colección para probar User y Event CRUD, incluyendo login y eventos disponibles",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49447859",
+		"_collection_link": "https://lively-capsule-2958248.postman.co/workspace/Xavier's-Workspace~a80ddb2b-4aeb-4a82-8fc5-0448ca4794b0/collection/49447859-22bb9de8-d89c-4c1d-9d06-7b42577e71bc?action=share&source=collection_link&creator=49447859"
+	},
+	"item": [
+		{
+			"name": "Registrar usuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Juan\",\"email\":\"juan@mail.com\",\"password\":\"12345678\",\"role\":\"attendee\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"juan@mail.com\",\"password\":\"12345678\"}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Eventos disponibles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/events/available",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"events",
+						"available"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear evento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"Concierto\",\"description\":\"Rock en vivo\",\"category\":\"Música\",\"location\":\"Auditorio\",\"date\":\"2025-11-15T20:00:00\",\"availableSeats\":100,\"organizerId\":1}"
+				},
+				"url": {
+					"raw": "http://localhost:4000/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cerrar Sesion",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar organizador",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Login organizador",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Cerrar sesion organizador",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Filtrar eventos",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Reserva",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Cancelar Reserva",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
