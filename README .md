@@ -93,12 +93,3 @@ El backend ahora:
 
 ---
 
-Si deseas que agregue:
-✔ endpoints documentados  
-✔ ejemplo de requests  
-✔ tabla completa de rutas  
-✔ versión en inglés  
-✔ versión PDF  
-✔ logo de NextPlace  
-
-Solo dímelo. 🚀
