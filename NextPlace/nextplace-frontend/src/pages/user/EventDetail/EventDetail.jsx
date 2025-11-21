@@ -1,3 +1,4 @@
+
 export default function EventDetail() {
   const event = {
     nombre: 'Cumbre de Innovación Tecnológica 2024',

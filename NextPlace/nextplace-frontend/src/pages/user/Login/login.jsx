@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { useNavigate } from "react-router-dom"; // ✅ Importa useNavigate
 import API from "../../../utils/api.js";
 import "./login.css";
@@ -74,7 +75,6 @@ const handleSubmit = async (e) => {
     setError(err.response?.data?.message || "Error en autenticación");
   }
 };
-
   return (
     <div className="login-wrapper">
       <div className="login-container">
@@ -85,7 +85,9 @@ const handleSubmit = async (e) => {
 
         {/* Formulario a la derecha */}
         <div className="login-form">
+
           <h2>{isLoginMode ? "Iniciar Sesión" : "Registrarse"}</h2>
+
 
           <div className="tab-switch">
             <button
@@ -102,6 +104,7 @@ const handleSubmit = async (e) => {
             </button>
             <div className={`tab-indicator ${isLoginMode ? "left" : "right"}`} />
           </div>
+
 
           <form onSubmit={handleSubmit}>
             {!isLoginMode && (
@@ -137,10 +140,12 @@ const handleSubmit = async (e) => {
             {isLoginMode && (
               <div className="forgot-password">
                 <a href="#">¿Olvidaste tu contraseña?</a>
+
               </div>
             )}
 
             <button type="submit" className="submit-btn">
+
               {isLoginMode ? "Entrar" : "Registrarse"}
             </button>
 
@@ -148,6 +153,7 @@ const handleSubmit = async (e) => {
 
             <p className="switch-mode">
               {isLoginMode ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
+
               <a
                 href="#"
                 onClick={(e) => {
@@ -155,7 +161,9 @@ const handleSubmit = async (e) => {
                   setIsLoginMode(!isLoginMode);
                 }}
               >
+
                 {isLoginMode ? "Regístrate ahora" : "Login"}
+
               </a>
             </p>
           </form>
@@ -163,6 +171,11 @@ const handleSubmit = async (e) => {
       </div>
     </div>
   );
+
 };
 
 export default Login;
+
+
+
+

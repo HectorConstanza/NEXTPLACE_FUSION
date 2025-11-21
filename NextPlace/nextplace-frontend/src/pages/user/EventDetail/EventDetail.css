@@ -1,0 +1,79 @@
+.event-detail-container {
+  display: flex;
+  gap: 60px;
+  padding: 60px;
+  background: #111;
+  min-height: 100vh;
+  color: white;
+}
+
+
+.event-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.event-image {
+  width: 420px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+.small-text {
+  color: #bbb;
+  font-size: 14px;
+}
+
+
+.event-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+}
+
+.event-title-detail {
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.event-host {
+  color: #bbb;
+  font-size: 18px;
+}
+
+.event-date {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.event-description {
+  line-height: 1.7;
+  color: #ddd;
+  max-width: 500px;
+}
+
+.buy-btn {
+  margin-top: 20px;
+  background: #f5f5f5;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  width: 260px;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  background: #e2e2e2;
+}
+
+.disclaimers {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #aaa;
+}
