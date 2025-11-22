@@ -1,14 +1,30 @@
-Wlab09 - Express (Postgres pool callbacks) + Vite React frontend
+# NEXTPLACE_FUSION
+# 🎟️ NextPlace - Sistema de Eventos
 
-Backend:
-- cd backend
-- cp .env.example .env and edit with your Postgres credentials
-- npm install
-- npm run dev
+NextPlace es una aplicación web para gestionar eventos, compra de tickets y administración de organizadores.  
+Incluye **frontend en React + Tailwind CSS** y **backend en Node.js + Express + Sequelize**.
 
-Frontend:
-- cd frontend
-- npm install
-- npm run dev
+---
 
-Backend runs on port 3000 by default. Frontend (Vite) runs on port 5173 by default.
+## 🚀 Características principales
+
+- **Usuarios**
+  - Registro e inicio de sesión (`/api/users/register`, `/api/users/login`)
+  - Navegación por eventos disponibles
+  - Flujo de compra de tickets (detalle → pago → confirmación)
+
+- **Organizadores**
+  - Inicio de sesión (`/api/organizers/login`)
+  - Dashboard con navegación interna
+  - Crear eventos (`POST /api/events`)
+  - Listar y administrar eventos (`GET /api/events`)
+
+- **Eventos**
+  - Modelo con `titulo, descripcion, categoria, lugar, fecha, cupos, organizador_id`
+  - Cupos disponibles (`cuposDispo`) inicializados con el total de cupos
+
+---
+
+cd backend
+npm install
+

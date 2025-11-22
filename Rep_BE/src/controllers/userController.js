@@ -2,10 +2,14 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { User } from "../models/User.js";
 import { UserTokenR } from "../models/UserTokenR.js";
-
 export const register = async (req, res) => {
   try {
-    const { nombre, correoElectronico, contrasena, role } = req.body;
+    const { nombre, correoElectronico, contrasena } = req.body;
+
+    const exists = await User.findOne({ where: { correoElectronico } });
+    if (exists) {
+      return res.status(400).json({ message: "El correo ya está registrado" });
+    }
 
     const hashedPassword = await bcrypt.hash(contrasena, 10);
 
@@ -13,19 +17,16 @@ export const register = async (req, res) => {
       nombre,
       correoElectronico,
       contrasena: hashedPassword,
-      role: role || "attendee"
+      role: "attendee"
     });
 
-    res.status(201).json({ message: "Usuario creado", user });
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "2h" });
 
+    res.status(201).json({ message: "Usuario creado", user, token });
   } catch (error) {
-    res.status(500).json({
-      message: "Error al registrar usuario",
-      error: error.message
-    });
+    res.status(500).json({ message: "Error al registrar usuario", error: error.message });
   }
 };
-
 
 export const login = async (req, res) => {
   try {
@@ -70,7 +71,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    const token = req.token; 
+    const token = req.token;
 
     await UserTokenR.destroy({
       where: { token }
