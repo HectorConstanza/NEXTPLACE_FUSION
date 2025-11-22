@@ -15,6 +15,7 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
     location: "",
     category: "",
     description: "",
+    availableSeats: "",
   });
 
   /* Si estamos en modo edición, cargamos los datos iniciales */
@@ -160,6 +161,23 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
                 onChange={handleChange}
               ></textarea>
               <p className="ce-counter">{formData.description.length}/750 caracteres</p>
+            </div>
+
+            {/* Cupos disponibles */}
+            <div className="ce-field">
+              <label htmlFor="availableSeats">Cupos disponibles*</label>
+              <div className="ce-input-icon">
+                <FormIcon className="icon-left">people</FormIcon>
+                <input
+                  id="availableSeats"
+                  name="availableSeats"
+                  type="number"
+                  min="1"
+                  placeholder="ej. 100"
+                  value={formData.availableSeats}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
 
             {/* Botón dinámico */}

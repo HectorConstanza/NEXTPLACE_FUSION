@@ -1,7 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./SideBar.css";
 
 export default function SideBar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Limpiar localStorage
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    // Redirigir al home
+    navigate("/");
+  };
+
   return (
     <div className="sidebar">
       <div className="logo-section">
@@ -37,7 +48,7 @@ export default function SideBar() {
         </Link>
       </nav>
 
-      <button className="logout-btn">
+      <button className="logout-btn" onClick={handleLogout}>
         <span className="material-symbols-rounded nav-icon">logout</span>
         <span>Log Out</span>
       </button>

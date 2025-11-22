@@ -41,19 +41,11 @@ export default function AppRouter() {
         <Route
           path="/organizer"
           element={
-            <DashboardLayout>
-              <EventList />
-            </DashboardLayout>
-          }
-        />
-
-        {/* --- MIS EVENTOS (ORGANIZER) --- */}
-        <Route
-          path="/organizer/mis-eventos"
-          element={
-            <DashboardLayout>
-              <EventList />
-            </DashboardLayout>
+            <ProtectedRoute requiredRole="organizer">
+              <DashboardLayout>
+                <EventList />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
 
@@ -61,9 +53,11 @@ export default function AppRouter() {
         <Route
           path="/organizer/crear-evento"
           element={
-            <DashboardLayout>
-              <CreateEvent />
-            </DashboardLayout>
+            <ProtectedRoute requiredRole="organizer">
+              <DashboardLayout>
+                <CreateEvent />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
 
@@ -71,9 +65,11 @@ export default function AppRouter() {
         <Route
           path="/organizer/editar-evento/:id"
           element={
-            <DashboardLayout>
-              <UpdateEvent />
-            </DashboardLayout>
+            <ProtectedRoute requiredRole="organizer">
+              <DashboardLayout>
+                <UpdateEvent />
+              </DashboardLayout>
+            </ProtectedRoute>
           }
         />
 

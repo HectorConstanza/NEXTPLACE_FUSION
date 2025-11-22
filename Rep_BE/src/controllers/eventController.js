@@ -99,3 +99,18 @@ export const getEventById = async (req, res) => {
   }
 };
 
+export const getEventsByOrganizer = async (req, res) => {
+  try {
+    const organizador_id = req.params.organizador_id;
+    
+    const events = await Event.findAll({ 
+      where: { organizador_id } 
+    });
+    
+    // Retornar array vacío si no hay eventos (no es un error)
+    res.json(events);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

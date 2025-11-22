@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // ✅ Importa useNavigate
 import API from "../../../utils/api.js";
 import Swal from "sweetalert2";
 import "./login.css";
@@ -45,7 +45,9 @@ const Login = ({ onLoginSuccess }) => {
 
           navigate("/");
           return;
-        } catch {}
+        } catch {
+          // Intentar login como organizador si falla el login de usuario
+        }
 
         try {
           // Login como organizador
@@ -88,18 +90,16 @@ const Login = ({ onLoginSuccess }) => {
       Swal.fire("Error", err.response?.data?.message || "Error inesperado", "error");
     }
   };
-  return (
+
+return (
     <div className="login-wrapper">
       <div className="login-container">
-
         <div className="login-image">
           <img src={loginImage} alt="Login visual" />
         </div>
 
         <div className="login-form">
-
           <h2>{isLoginMode ? "Iniciar Sesión" : "Registrarse"}</h2>
-
 
           <div className="tab-switch">
             <button
@@ -118,7 +118,6 @@ const Login = ({ onLoginSuccess }) => {
 
             <div className={`tab-indicator ${isLoginMode ? "left" : "right"}`} />
           </div>
-
 
           <form onSubmit={handleSubmit}>
             {!isLoginMode && (
@@ -153,38 +152,14 @@ const Login = ({ onLoginSuccess }) => {
               className="login-input"
             />
 
-            {isLoginMode && (
-              <div className="forgot-password">
-                <a href="#">¿Olvidaste tu contraseña?</a>
-              </div>
-            )}
-
             <button type="submit" className="submit-btn">
               {isLoginMode ? "Entrar" : "Registrarse"}
             </button>
-
-            <p className="switch-mode">
-              {isLoginMode ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsLoginMode(!isLoginMode);
-                }}
-              >
-                {isLoginMode ? "Regístrate ahora" : "Login"}
-              </a>
-            </p>
           </form>
         </div>
       </div>
     </div>
   );
-
 };
 
 export default Login;
-
-
-
-

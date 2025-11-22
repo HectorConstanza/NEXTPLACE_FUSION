@@ -56,3 +56,30 @@
 .event-card-btn:hover {
   background: #f2f2f2 !important;
 }
+
+.loading,
+.error-message,
+.no-events {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.loading {
+  background: #f0f8ff;
+  color: #2c3e50;
+}
+
+.error-message {
+  background: #ffe6e6;
+  color: #d32f2f;
+}
+
+.no-events {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
