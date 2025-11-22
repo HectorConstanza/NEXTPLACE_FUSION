@@ -1,14 +1,22 @@
+
+// src/routes/AppRouter.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Home from "../pages/user/Home/Home.tsx";
+/* --- Páginas públicas / usuario --- */
+import Home from "../pages/user/Home/Home";
+import EventDetail from "../pages/user/EventDetail/EventDetail";
 import Login from "../pages/user/Login/login.jsx";
 import TicketsPages from "../pages/user/GetTickets/TicketsPages.jsx";
 import DetallePage from "../pages/user/GetTickets/DetallePage.jsx";
 import PagoPage from "../pages/user/GetTickets/PagoPage.jsx";
-import EventDetail from "../pages/user/EventDetail/EventDetail.jsx";
 
-import Dashboard from "../pages/organizer/Dashboard/dashnoard.jsx";
+/* --- Dashboard Layout --- */
+import DashboardLayout from "../pages/organizer/Dashboard/DashboardLayout";
+
+/* --- Páginas del organizador --- */
+import EventList from "../pages/organizer/EventsList/EventList";
 import CreateEvent from "../pages/organizer/CreateEvent/CreateEvent.jsx";
+import UpdateEvent from "../pages/organizer/CreateEvent/UpdateEvent.jsx"; // NUEVO
 
 import ProtectedRoute from "../routes/ProtectedRoute";
 
@@ -17,37 +25,60 @@ export default function AppRouter() {
     <Router>
       <Routes>
 
-        {/* RUTAS PÚBLICAS */}
+        {/* --- HOME PÚBLICA --- */}
         <Route path="/" element={<Home />} />
+        <Route path="/event/:id" element={<EventDetail />} />
+
+        {/* --- LOGIN DE USUARIO --- */}
         <Route path="/login" element={<Login />} />
 
-        {/* RUTAS PÚBLICAS DEL USUARIO */}
-        <Route path="/event/:id" element={<EventDetail />} />
+        {/* --- FLUJO DE COMPRA DE TICKETS --- */}
         <Route path="/tickets/:eventId" element={<TicketsPages />} />
         <Route path="/detalles/:eventId" element={<DetallePage />} />
         <Route path="/pago/:eventId" element={<PagoPage />} />
 
-        {/* RUTAS DEL ORGANIZADOR (PROTEGIDAS) */}
+        {/* --- ORGANIZER DASHBOARD PRINCIPAL --- */}
         <Route
-          path="/organizer/create-event"
+          path="/organizer"
           element={
-            <ProtectedRoute requiredRole="organizer">
-              <CreateEvent />
-            </ProtectedRoute>
+            <DashboardLayout>
+              <EventList />
+            </DashboardLayout>
           }
+        />
 
-        >
-          <Route
-            path="create-event"
-            element={
-              <ProtectedRoute role="organizer">
-                <CreateEvent />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
+        {/* --- MIS EVENTOS (ORGANIZER) --- */}
+        <Route
+          path="/organizer/mis-eventos"
+          element={
+            <DashboardLayout>
+              <EventList />
+            </DashboardLayout>
+          }
+        />
+
+        {/* --- CREAR EVENTO (ORGANIZER) --- */}
+        <Route
+          path="/organizer/crear-evento"
+          element={
+            <DashboardLayout>
+              <CreateEvent />
+            </DashboardLayout>
+          }
+        />
+
+        {/* --- EDITAR EVENTO (ORGANIZER) --- */}
+        <Route
+          path="/organizer/editar-evento/:id"
+          element={
+            <DashboardLayout>
+              <UpdateEvent />
+            </DashboardLayout>
+          }
+        />
 
       </Routes>
     </Router>
   );
 }
+
