@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Importa useNavigate
+import { useNavigate, Link } from "react-router-dom"; // ✅ Importa useNavigate
 import API from "../../../utils/api.js";
 import Swal from "sweetalert2";
 import "./login.css";
@@ -151,6 +151,12 @@ return (
               required
               className="login-input"
             />
+
+            {isLoginMode && (
+              <div style={{ marginTop: "0.5rem" }}>
+                <Link to="/forgot-password" className="forgot-link">¿Olvidaste tu contraseña?</Link>
+              </div>
+            )}
 
             <button type="submit" className="submit-btn">
               {isLoginMode ? "Entrar" : "Registrarse"}

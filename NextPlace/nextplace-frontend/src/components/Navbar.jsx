@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../utils/api.js"; // helper axios con baseURL
 import "./Navbar.css";
+import { useSearch } from "../context/SearchContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const { searchTerm, setSearchTerm } = useSearch();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -54,8 +56,24 @@ const Navbar = () => {
           <a href="#">Reservas</a>
         </div>
 
-        {/* Acciones */}
-        <div className="navbar-actions">
+        {/* Acciones (incluye búsqueda) */}
+        <div className="navbar-actions" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div className="navbar-search" style={{ display: "flex", alignItems: "center" }}>
+            <input
+              type="search"
+              placeholder="Buscar eventos..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="nav-search-input"
+              aria-label="Buscar eventos"
+              style={{ padding: "0.4rem 0.5rem", borderRadius: 6, border: "1px solid #ddd" }}
+            />
+          </div>
+          
+          
+          
+        
+        
           {user ? (
             <>
               <span className="navbar-user"> {user.nombre}</span>

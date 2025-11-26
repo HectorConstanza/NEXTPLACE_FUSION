@@ -6,6 +6,7 @@ import { sequelize } from "./config/db.js";
 import "./models/index.js";
 
 import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import organizerRoutes from "./routes/organizerRoutes.js";
 import reservaRoutes from "./routes/reservaRoutes.js";
@@ -26,6 +27,7 @@ app.use(express.json());
 
 // ✅ Rutas
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/organizers", organizerRoutes);
 app.use("/api/reservas", reservaRoutes);

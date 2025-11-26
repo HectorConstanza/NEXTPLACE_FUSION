@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages/user/Home/Home";
 import EventDetail from "../pages/user/EventDetail/EventDetail";
 import Login from "../pages/user/Login/login.jsx";
+import ForgotPassword from "../pages/user/Login/ForgotPassword.jsx";
+import ResetPassword from "../pages/user/Login/ResetPassword.jsx";
 import TicketsPages from "../pages/user/GetTickets/TicketsPages.jsx";
 import DetallePage from "../pages/user/GetTickets/DetallePage.jsx";
 import PagoPage from "../pages/user/GetTickets/PagoPage.jsx";
@@ -31,6 +33,8 @@ export default function AppRouter() {
 
         {/* --- LOGIN DE USUARIO --- */}
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* --- FLUJO DE COMPRA DE TICKETS --- */}
         <Route path="/tickets/:eventId" element={<TicketsPages />} />
