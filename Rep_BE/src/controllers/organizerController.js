@@ -15,13 +15,29 @@ export const registerOrganizer = async (req, res) => {
       contraseña: hashed
     });
 
-    res.status(201).json({
-      message: "Organizador registrado",
-      organizer
+    // Enviamos también el role
+    const organizerData = {
+      id: organizer.id,
+      nombre: organizer.nombre,
+      correoElectronico: organizer.correoElectronico,
+      role: "organizer"
+    };
+
+    // Generar token
+    const token = jwt.sign(organizerData, process.env.JWT_SECRET, {
+      expiresIn: "1h"
     });
 
+    res.status(201).json({
+      message: "Organizador registrado",
+      token,
+      organizer: organizerData
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error al registrar organizador", error: error.message });
+    res.status(500).json({
+      message: "Error al registrar organizador",
+      error: error.message,
+    });
   }
 };
 
@@ -38,11 +54,16 @@ export const loginOrganizer = async (req, res) => {
     if (!match)
       return res.status(400).json({ message: "Contraseña incorrecta" });
 
-    const token = jwt.sign(
-      { id: organizer.id, tipo: "organizador" },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    const organizerData = {
+      id: organizer.id,
+      nombre: organizer.nombre,
+      correoElectronico: organizer.correoElectronico,
+      role: "organizer"
+    };
+
+    const token = jwt.sign(organizerData, process.env.JWT_SECRET, {
+      expiresIn: "1h"
+    });
 
     const now = new Date();
     const exp = new Date(now.getTime() + 60 * 60 * 1000);
@@ -56,7 +77,8 @@ export const loginOrganizer = async (req, res) => {
 
     res.status(200).json({
       message: "Login exitoso",
-      token
+      token,
+      organizer: organizerData
     });
 
   } catch (error) {
@@ -67,7 +89,7 @@ export const loginOrganizer = async (req, res) => {
 
 export const logoutOrganizer = async (req, res) => {
   try {
-    const token = req.token; 
+    const token = req.token;
     await OrgTokenR.destroy({ where: { token } });
 
     res.status(200).json({ message: "Logout exitoso" });

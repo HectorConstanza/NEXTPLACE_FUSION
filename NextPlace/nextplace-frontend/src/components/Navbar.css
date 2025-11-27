@@ -3,14 +3,13 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  max-width: 800px;
+  width: 95%;
+  max-width: 1100px;
   background-color: #2b2b2b;
   border-radius: 9999px;
-  padding: 12px 25px;
+  padding: 16px 32px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
 .navbar-content {
@@ -18,11 +17,11 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 25px;
 }
 
+/* LOGO */
 .navbar-logo {
-  display: flex;
-  align-items: center;
   font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-size: 28px;
@@ -31,37 +30,64 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* LINKS */
 .navbar-links {
   display: flex;
-  gap: 25px;
+  gap: 35px;
 }
 
 .navbar-links a {
   color: #cccccc;
   text-decoration: none;
   font-size: 16px;
-  font-weight: 400;
-  transition: color 0.2s ease-in-out;
 }
 
 .navbar-links a:hover {
   color: white;
 }
 
+/* ACTIONS */
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
+/* SEARCH INPUT */
+.nav-search-input {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #1f1f1f;
+  color: white;
+  width: 180px;
+  font-size: 14px;
+}
+
+.nav-search-input::placeholder {
+  color: #bbb;
+}
+
+/* USER LOGGED */
+.navbar-user {
+  background-color: #444;
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* DEFAULT AVATAR */
 .user-icon {
-  display: block;
-  width: 30px;
-  height: 30px;
-  background-color: #7cdaf9;
+  width: 35px;
+  height: 35px;
+  background-color: #ffb3db;
   border-radius: 50%;
+  cursor: pointer;
 }
 
+/* SIGN IN BUTTON (AZUL) */
 .sign-in-button {
   background-color: #7cdaf9;
   color: rgb(0, 0, 0);
@@ -73,53 +99,23 @@
   transition: background-color 0.2s ease-in-out;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
-  font-style: normal;
 }
-
 .sign-in-button:hover {
   background-color: #389acb;
 }
 
-.navbar-hidden {
-  top: -100px !important;
-}
-/* Nombre del usuario */
-.navbar-user {
-  background-color: #444; /* contraste con el fondo oscuro */
-  color: #ffffff;
-  padding: 6px 14px;
-  border-radius: 9999px; /* estilo pill redondeado */
-  font-size: 15px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.navbar-user:hover {
-  background-color: #666; /* efecto hover */
-}
-/* Botón Logout */
+/* LOGOUT RED */
 .sign-out-button {
-  background-color: #ff6b6b; /* rojo suave */
+  background-color: #ff6b6b;
   color: #fff;
   border: none;
-  border-radius: 9999px; /* pill redondeado */
-  padding: 8px 18px;
+  border-radius: 9999px;
+  padding: 8px 20px;
   font-size: 15px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
+  transition: 0.2s ease-in-out;
 }
-
-/* Hover */
 .sign-out-button:hover {
-  background-color: #e63946; /* rojo más intenso */
-  transform: scale(1.05); /* efecto ligero de zoom */
+  background-color: #e63946;
+  transform: scale(1.05);
 }
-
-/* Opcional: efecto al hacer click */
-.sign-out-button:active {
-  transform: scale(0.95);
-}
-

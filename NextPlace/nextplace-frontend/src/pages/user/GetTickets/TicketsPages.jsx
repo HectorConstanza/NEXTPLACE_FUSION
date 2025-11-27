@@ -1,6 +1,7 @@
+// src/pages/user/TicketsPage/TicketsPage.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import API from "../../../utils/api.js"; // helper axios con baseURL
+import API from "../../../utils/api.js";
 import "./css/GetTickets.css";
 
 function TicketsPage() {
@@ -21,20 +22,22 @@ function TicketsPage() {
         console.error("Error al cargar evento", err);
       }
     };
+
     fetchEvent();
   }, [eventId]);
 
   const handleContinue = async () => {
     try {
       const token = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user")); // guardado en login
+      const user = JSON.parse(localStorage.getItem("user"));
+
       if (!user) {
         alert("Debes iniciar sesión para reservar");
         navigate("/login");
         return;
       }
 
-      // Crear reserva en backend
+      // ⭐ AQUI SE CORRIGIÓ (ANTES: "/api/reservas")
       const res = await API.post(
         "/reservas",
         {
@@ -46,9 +49,6 @@ function TicketsPage() {
         }
       );
 
-      console.log("Reserva creada:", res.data);
-
-      // Navegar a detalles con info seleccionada
       navigate(`/detalles/${eventId}`, {
         state: { general, vip, event, reserva: res.data.reserva },
       });
@@ -62,31 +62,45 @@ function TicketsPage() {
     return <p>Cargando evento...</p>;
   }
 
+  // ⭐ MISMA LÓGICA DE HOME Y EVENTCARD
+  const fullImageUrl = event.imagen
+    ? `http://localhost:4000/${event.imagen}`
+    : "/src/assets/images/ejemplo.jpg";
+
   return (
     <div className="get-tickets">
       <div className="gt-container">
-        {/* Header del evento */}
+
+        {/* HEADER */}
         <header className="event-header">
           <img
-            src={event.image || "../../../assets/images/Captura2.JPG"}
+            src={fullImageUrl}
             alt={event.titulo}
             className="event-image"
           />
+
           <div className="event-info">
             <h2>{event.titulo}</h2>
             <p>{event.descripcion}</p>
+
             <div className="event-details">
               <p>📅 {new Date(event.fecha).toLocaleDateString()}</p>
-              <p>🕘  {new Date(event.fecha).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+              <p>
+                🕘{" "}
+                {new Date(event.fecha).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
               <p>📍 {event.lugar}</p>
             </div>
           </div>
         </header>
 
-        {/* Sección de tickets */}
+        {/* TICKETS */}
         <section className="tickets-section">
           <div className="tickets-left">
-            {/* Steps responsivos */}
+
             <div className="steps">
               <span className="active-step">Tickets</span>
               <span
@@ -104,12 +118,17 @@ function TicketsPage() {
               <div>
                 <h4>Admisión General</h4>
                 <p>Entrada estándar</p>
+
+                {/* Cupos reales */}
                 <span className="available">
                   {event.cuposDispo || event.cupos} disponibles
                 </span>
               </div>
+
               <div className="ticket-actions">
-                <span className="price">$45</span>
+                {/* ⭐ COSTO REAL DESDE BACKEND */}
+                <span className="price">${event.costo}</span>
+
                 <div className="quantity-control">
                   <button onClick={() => setGeneral(Math.max(0, general - 1))}>
                     -
@@ -120,45 +139,34 @@ function TicketsPage() {
               </div>
             </div>
 
-            {/* Ticket VIP */}
-            <div className="ticket-card">
-              <div>
-                <h4>Experiencia VIP</h4>
-                <p>Acceso premium con beneficios exclusivos</p>
-                <span className="available">50 disponibles</span>
-              </div>
-              <div className="ticket-actions">
-                <span className="price">$120</span>
-                <div className="quantity-control">
-                  <button onClick={() => setVip(Math.max(0, vip - 1))}>-</button>
-                  <span>{vip}</span>
-                  <button onClick={() => setVip(vip + 1)}>+</button>
-                </div>
-              </div>
-            </div>
-
-            {/* Apartado nuevo cuando se selecciona "Detalles" */}
+            {/* Detalles */}
             {showDetails && (
               <div className="event-extra-details">
                 <h3>Detalles del evento</h3>
-                <p>{event.categoria || "Información adicional del evento"}</p>
-                <p>{event.cupos}</p>
+                <p>{event.categoria}</p>
+                <p>{event.cupos} cupos totales</p>
               </div>
             )}
           </div>
 
-          {/* Resumen del pedido */}
+          {/* RESUMEN */}
           <aside className="order-summary">
             <h3>Resumen del pedido</h3>
+
             <div className="total-section">
               <span>Total</span>
-              <span>${45 * general + 120 * vip}</span>
+
+              {/* ⭐ TOTAL REAL */}
+              <span>${event.costo * general}</span>
             </div>
+
             <button className="continue-btn" onClick={handleContinue}>
               Continuar
             </button>
+
             <p className="secure-info">Sección de pago</p>
           </aside>
+
         </section>
       </div>
     </div>

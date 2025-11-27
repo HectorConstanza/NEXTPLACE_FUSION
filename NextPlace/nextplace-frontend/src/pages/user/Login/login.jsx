@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Importa useNavigate
+import { useNavigate, Link } from "react-router-dom";
 import API from "../../../utils/api.js";
+import Swal from "sweetalert2";
 import "./login.css";
 import loginImage from "../../../assets/images/background.png";
 
 const Login = ({ onLoginSuccess }) => {
-  const navigate = useNavigate(); // ✅ Hook para redirección
+  const navigate = useNavigate();
 
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [formData, setFormData] = useState({
@@ -13,77 +14,118 @@ const Login = ({ onLoginSuccess }) => {
     correoElectronico: "",
     contrasena: "",
   });
-  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  // 🌙💗 ALERTA GLOBAL
+  const showAlert = (title, text, icon) => {
+    return Swal.fire({
+      title,
+      html: `<span style="color:#ff9ad5">${text}</span>`,
+      icon,
+      background: "#050505",
+      color: "#ff9ad5",
+      iconColor: "#ff9ad5",
+      confirmButtonColor: "#ff9ad5",
+      confirmButtonText: "OK",
+    });
+  };
 
-  // Si es login → primero probar usuarios, luego organizadores
-  // Si es registro → solo usuarios
-  const endpoint = isLoginMode ? "/users/login" : "/users/register";
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    let response;
+    try {
+      let response;
 
-    if (isLoginMode) {
-      try {
-        // 1. Intentar login como usuario
-        response = await API.post("/users/login", formData);
-
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-
-        if (onLoginSuccess) onLoginSuccess(response.data.user);
-
-        // Redirigir al home
-        navigate("/");
-        return;
-      } catch (errUser) {
-        // 2. Si falla, intentar login como organizador
+      // ========================================================
+      // 🔹 LOGIN
+      // ========================================================
+      if (isLoginMode) {
         try {
-          response = await API.post("/organizers/login", formData);
+          // Intentar login como usuario
+          response = await API.post("/users/login", {
+            correoElectronico: formData.correoElectronico,
+            contrasena: formData.contrasena,
+          });
 
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("user", JSON.stringify(response.data.organizer));
+          const { token, user } = response.data;
 
-          if (onLoginSuccess) onLoginSuccess(response.data.organizer);
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user));
 
-          // Redirigir al dashboard de organizador
-          navigate("/organizer");
+          if (onLoginSuccess) onLoginSuccess(user);
+
+          navigate("/");
           return;
-        } catch (errOrg) {
-          setError(errOrg.response?.data?.message || "Credenciales inválidas");
+
+        } catch {
+          // Si usuario falla, intentar login como organizador
+          try {
+            response = await API.post("/organizers/login", {
+              correoElectronico: formData.correoElectronico,
+              contrasena: formData.contrasena,
+            });
+
+            const { token, organizer } = response.data;
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(organizer));
+
+            if (onLoginSuccess) onLoginSuccess(organizer);
+
+            navigate("/organizer");
+            return;
+
+          } catch (errorFinal) {
+            return showAlert(
+              "Error",
+              "El correo o la contraseña no coinciden",
+              "error"
+            );
+          }
         }
       }
-    } else {
-      // Registro normal de usuario
-      response = await API.post(endpoint, formData);
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+      // ========================================================
+      // 🔹 REGISTRO
+      // ========================================================
+      try {
+        response = await API.post("/users/register", formData);
 
-      if (onLoginSuccess) onLoginSuccess(response.data.user);
+        await showAlert(
+          "Perfil creado",
+          "Tu cuenta ha sido creada con éxito 💗. Ahora puedes iniciar sesión.",
+          "success"
+        );
 
-      navigate("/");
+        navigate("/login");
+
+      } catch (error) {
+        return showAlert(
+          "Error",
+          error.response?.data?.message || "Error al registrar usuario",
+          "error"
+        );
+      }
+
+    } catch (err) {
+      showAlert(
+        "Error inesperado",
+        err.response?.data?.message || "Algo salió mal",
+        "error"
+      );
     }
-  } catch (err) {
-    setError(err.response?.data?.message || "Error en autenticación");
-  }
-};
+  };
 
   return (
     <div className="login-wrapper">
       <div className="login-container">
-        {/* Imagen a la izquierda */}
         <div className="login-image">
           <img src={loginImage} alt="Login visual" />
         </div>
 
-        {/* Formulario a la derecha */}
         <div className="login-form">
           <h2>{isLoginMode ? "Iniciar Sesión" : "Registrarse"}</h2>
 
@@ -94,12 +136,14 @@ const handleSubmit = async (e) => {
             >
               Login
             </button>
+
             <button
               className={!isLoginMode ? "active" : ""}
               onClick={() => setIsLoginMode(false)}
             >
               Signup
             </button>
+
             <div className={`tab-indicator ${isLoginMode ? "left" : "right"}`} />
           </div>
 
@@ -115,6 +159,7 @@ const handleSubmit = async (e) => {
                 className="login-input"
               />
             )}
+
             <input
               type="email"
               name="correoElectronico"
@@ -124,6 +169,7 @@ const handleSubmit = async (e) => {
               required
               className="login-input"
             />
+
             <input
               type="password"
               name="contrasena"
@@ -135,29 +181,16 @@ const handleSubmit = async (e) => {
             />
 
             {isLoginMode && (
-              <div className="forgot-password">
-                <a href="#">¿Olvidaste tu contraseña?</a>
+              <div style={{ marginTop: "0.5rem" }}>
+                <Link to="/forgot-password" className="forgot-link">
+                  ¿Olvidaste tu contraseña?
+                </Link>
               </div>
             )}
 
             <button type="submit" className="submit-btn">
               {isLoginMode ? "Entrar" : "Registrarse"}
             </button>
-
-            {error && <p className="login-error">{error}</p>}
-
-            <p className="switch-mode">
-              {isLoginMode ? "¿No tienes cuenta?" : "¿Ya tienes cuenta?"}{" "}
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsLoginMode(!isLoginMode);
-                }}
-              >
-                {isLoginMode ? "Regístrate ahora" : "Login"}
-              </a>
-            </p>
           </form>
         </div>
       </div>

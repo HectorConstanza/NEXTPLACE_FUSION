@@ -3,43 +3,53 @@ import jwt from "jsonwebtoken";
 import { UserTokenR } from "../models/UserTokenR.js";
 
 export const validateRegistration = [
-    body('nombre').notEmpty().withMessage('El nombre es obligatorio.'),
-    body('correoElectronico').isEmail().withMessage('El formato del email es inválido.'),
-    body('contrasena')
-        .isLength({ min: 8 })
-        .withMessage('La contraseña debe tener al menos 8 caracteres.'),
+  body("nombre")
+    .trim()
+    .notEmpty()
+    .withMessage("El nombre es obligatorio."),
 
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({
-                status: 'error',
-                message: 'Error de validación',
-                errors: errors.array().map(e => e.msg)
-            });
-        }
-        next();
+  body("correoElectronico")
+    .trim()
+    .isEmail()
+    .withMessage("El formato del email es inválido."),
+
+  body("contrasena")
+    .trim()
+    .isLength({ min: 8 })
+    .withMessage("La contraseña debe tener al menos 8 caracteres."),
+
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Error de validación',
+        errors: errors.array().map(e => e.msg)
+      });
     }
+    next();
+  }
 ];
 
 export const validateLogin = [
-    body('correoElectronico').isEmail().withMessage('El formato del email es inválido.'),
-    body('contrasena').notEmpty().withMessage('La contraseña es obligatoria.'),
+  body('correoElectronico').isEmail().withMessage('El formato del email es inválido.'),
+  body('contrasena').notEmpty().withMessage('La contraseña es obligatoria.'),
 
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ 
-                status: 'error',
-                message: 'Error de validación',
-                errors: errors.array().map(e => e.msg)
-            });
-        }
-        next();
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Error de validación',
+        errors: errors.array().map(e => e.msg)
+      });
     }
+    next();
+  }
 ];
 export const authMiddleware = async (req, res, next) => {
-    
+
   const auth = req.headers.authorization;
 
   if (!auth || !auth.startsWith("Bearer "))

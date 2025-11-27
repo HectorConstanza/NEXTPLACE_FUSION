@@ -1,0 +1,208 @@
+.ce-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #0f0f0f;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+.ce-header {
+  background: transparent;
+  padding: 20px 30px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.ce-header-content {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.ce-page-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  padding: 30px 40px 10px;
+}
+
+/* MAIN */
+
+.ce-main {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.ce-card {
+  width: 100%;
+  max-width: 900px;
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 25px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* TITLE */
+
+.ce-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.ce-title-icon {
+  width: 32px;
+  height: 32px;
+  color: #FF64BC;
+}
+
+.ce-title-text {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+}
+
+/* FORM */
+
+.ce-form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.ce-field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #dcdcdc;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Inputs */
+.ce-field input,
+.ce-field select,
+.ce-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #0f0f0f;
+  color: white;
+  transition: .2s;
+}
+
+.ce-field input::placeholder,
+.ce-field textarea::placeholder {
+  color: rgba(255,255,255,0.4);
+}
+
+.ce-field input:focus,
+.ce-field select:focus,
+.ce-field textarea:focus {
+  border-color: #7CDAF9;
+  background: #141414;
+  box-shadow: 0 0 0 2px rgba(124, 218, 249, 0.25);
+}
+
+/* GRID 2 */
+
+.ce-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 26px;
+}
+
+/* ICON INPUT */
+
+.ce-input-icon {
+  position: relative;
+}
+
+.form-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.4);
+  font-size: 20px;
+  pointer-events: none;
+}
+
+.icon-left {
+  left: 12px;
+}
+
+.icon-right {
+  right: 12px;
+}
+
+.ce-input-icon input,
+.ce-input-icon select {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+/* Textarea */
+.ce-field textarea {
+  min-height: 140px;
+  resize: none;
+}
+
+/* Counter */
+
+.ce-counter {
+  font-size: 12px;
+  text-align: right;
+  color: rgba(255,255,255,0.4);
+}
+
+
+.ce-submit-btn {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background: #7CDAF9;
+  color: #000;
+  padding: 14px 40px;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ce-submit-btn:hover {
+  background: #5BC3E2;
+}
+
+/* Subida de imagen */
+.ce-image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ce-image-upload input[type="file"] {
+  background: #1d1d1d;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  color: #ccc;
+}
+
+/* Preview */
+.ce-image-preview {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #444;
+  object-fit: cover;
+  align-self: flex-start;
+}

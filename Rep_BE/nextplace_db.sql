@@ -430,3 +430,19 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+UPDATE evento
+SET categoria = 'Música'
+WHERE LOWER(categoria) IN ('musica', 'música');
+
+
+UPDATE evento
+SET categoria = 'Arte y Cultura'
+WHERE LOWER(categoria) IN ('arte', 'arte y cultura');
+
+UPDATE evento
+SET categoria = 'Tecnología'
+WHERE LOWER(categoria) IN ('tecnologia', 'tecnología');
+
+ALTER TABLE evento
+ADD COLUMN costo DECIMAL(10,2) NOT NULL DEFAULT 0;

@@ -1,0 +1,38 @@
+/* ==== ESPACIADO GENERAL ==== */
+.home-spacing-top {
+  height: 100px; /* espacio pequeñito bajo navbar */
+}
+
+/* ==== HEADER ==== */
+.home-header-wrapper {
+  margin-bottom: 10px;
+}
+
+/* ==== BOTONES DE CATEGORÍA ==== */
+.home-buttons-wrapper {
+  margin-top: -15px;
+  margin-bottom: 5px;
+}
+
+/* ==== GRID DE CARDS ==== */
+.home-cards-container {
+  margin-top: 0px;
+  margin-bottom: 25px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 40px;
+}
+
+/* ==== MENSAJE SIN EVENTOS ==== */
+.no-events-msg {
+  color: #ccc;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}

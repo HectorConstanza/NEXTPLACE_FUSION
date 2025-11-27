@@ -1,0 +1,91 @@
+/* Container */
+.event-detail-container {
+  display: flex;
+  gap: 60px;
+  padding: 60px;
+  background: #111;
+  min-height: 100vh;
+  color: white;
+}
+
+/* Left side */
+.event-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Image */
+.event-image {
+  width: 420px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 25px;
+}
+
+/* Text below image */
+.small-text {
+  color: #bbb;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.small-text .material-icons-outlined {
+  font-size: 20px;
+  color: #ffb3db;
+}
+
+/* Right side */
+.event-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 50%;
+}
+
+/* Title */
+.event-title-detail {
+  font-size: 38px;
+  font-weight: 600;
+}
+
+/* Host */
+.event-host {
+  color: #bbb;
+  font-size: 18px;
+}
+
+/* Description */
+.event-description {
+  line-height: 1.7;
+  color: #ddd;
+  max-width: 500px;
+}
+
+/* Button */
+.buy-btn {
+  margin-top: 20px;
+  background: #ffb3db;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  width: 260px;
+  color: black;
+  transition: 0.3s;
+}
+
+.buy-btn:hover {
+  background: #ff9ccf;
+}
+
+/* Disclaimer */
+.disclaimers {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #aaa;
+}

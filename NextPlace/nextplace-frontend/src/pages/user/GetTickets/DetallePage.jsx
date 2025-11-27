@@ -2,7 +2,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./css/Detalles.css"; // <-- CSS específico para esta vista
-import Captura from "../../../assets/images/Captura.JPG";
 
 function DetallesPage() {
   const navigate = useNavigate();
@@ -15,6 +14,7 @@ function DetallesPage() {
 
   return (
     <div className="get-tickets">
+
       <div className="form-container detalles-container">
         <h2>Detalles del Comprador</h2>
         <p className="form-subtitle">
@@ -50,4 +50,6 @@ function DetallesPage() {
   );
 }
 
+
 export default DetallesPage;
+

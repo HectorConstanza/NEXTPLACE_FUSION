@@ -1,0 +1,117 @@
+/* src/pages/organizer/EventsList/EventList.css */
+
+.event-list-wrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  font-family: "Poppins", sans-serif; 
+}
+
+.event-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-title {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.event-subtitle {
+  font-size: 15px;
+  color: #777;
+}
+
+.create-event-btn {
+  background: #7CDAF9; 
+  color: #000;        
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif; 
+  transition: 0.2s ease-in-out;
+}
+
+.create-event-btn:hover {
+  background: #5bc3e2;
+}
+
+.event-card-btn {
+  background: #ffffff !important; 
+  color: #000000 !important;      
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 600 !important;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.event-card-btn:hover {
+  background: #f2f2f2 !important;
+}
+
+.loading,
+.error-message,
+.no-events {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+}
+
+.loading {
+  background: #f0f8ff;
+  color: #2c3e50;
+}
+
+.error-message {
+  background: #ffe6e6;
+  color: #d32f2f;
+}
+
+.no-events {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Franja cuando no hay eventos */
+.empty-banner {
+  width: 100%;
+  padding: 18px 20px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.empty-banner-text {
+  color: #ffb3e6;
+  font-size: 17px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ------------------------------ */
+/* NUEVO: GRID DE 3 TARJETAS POR FILA */
+/* ------------------------------ */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  width: 100%;
+}
+
+/* Asegura que NO haya scroll horizontal */
+.cards-container {
+  overflow-x: hidden !important;
+}

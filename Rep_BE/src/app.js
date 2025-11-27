@@ -1,40 +1,40 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";              // ← añadido
+const __dirname = path.resolve();     // ← añadido
+
 import { sequelize } from "./config/db.js";
 
 import "./models/index.js";
 
 import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import organizerRoutes from "./routes/organizerRoutes.js";
 import reservaRoutes from "./routes/reservaRoutes.js";
-
 
 dotenv.config();
 
 const app = express();
 
-// ✅ CORS configurado
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// ✅ Body parser simplificado
 app.use(express.json());
 
-// ✅ Rutas
+// ⭐ AQUI ESTA TU FIX REAL ⭐
+app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
+
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/organizers", organizerRoutes);
 app.use("/api/reservas", reservaRoutes);
-app.use("/api/users", userRoutes);
-app.use("/uploads", express.static("src/uploads"));
 
-
-// ✅ Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
 
@@ -57,7 +57,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ✅ DB
 sequelize.sync()
   .then(() => console.log("DB conectada"))
   .catch((err) => console.error("Error al conectar DB:", err));

@@ -1,29 +1,31 @@
-/* Importar Poppins desde Google Fonts */
+/* Importar Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* Aplicar Poppins a todo el cuerpo */
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+/* WRAPPER GENERAL */
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 1rem;
+  background-color: #060a0c;
 }
 
-
-
+/* CONTENEDOR */
 .login-container {
   display: flex;
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 1.2rem;
   overflow: hidden;
-  max-width: 900px;
+  max-width: 1100px; /* 🔥 más grande */
   width: 100%;
-  border-radius: 8px; 
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
 }
 
+/* IMAGEN */
 .login-image {
   display: none;
 }
@@ -34,43 +36,48 @@ body {
   object-fit: cover;
 }
 
+/* FORM */
 .login-form {
-  padding: 2rem;
+  padding: 3rem;       /* 🔥 más espacioso */
   width: 100%;
-  max-width: 430px;
+  max-width: 550px;    /* 🔥 más ancho */
   background-color: #060a0c;
-   
+  color: #fff;
 }
 
 .login-form h2 {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.4rem;   /* 🔥 más grande */
+  margin-bottom: 2rem;
+  font-weight: 700;
 }
 
+/* SWITCH LOGIN / SIGNUP */
 .tab-switch {
   position: relative;
   display: flex;
-  border: 1px solid #ccc;
-  border-radius: 9999px;
+  border: 2px solid #ccc;
+  border-radius: 50px;
   overflow: hidden;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.1rem;
 }
 
 .tab-switch button {
   flex: 1;
-  padding: 0.75rem;
-  font-size: 1rem;
+  padding: 1rem;         /* 🔥 más grande */
+  font-size: 1.2rem;     /* 🔥 más grande */
   background: none;
   border: none;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
+  transition: 0.3s;
+  font-weight: 600;
   color: #fff;
-  transition: color 0.3s;
 }
 
+/* Cuando el fondo es rosado → letras negras */
 .tab-switch button.active {
-  color: #fff;
+  color: #000;      /* 🔥 contraste perfecto */
 }
 
 .tab-indicator {
@@ -78,9 +85,10 @@ body {
   top: 0;
   bottom: 0;
   width: 50%;
-  background: linear-gradient(to right, #FFB3DB);
-  border-radius: 9999px;
-  transition: left 0.3s;
+  background: #FFB3DB;
+  border-radius: 50px;
+  transition: 0.3s;
+  z-index: 1;
 }
 
 .tab-indicator.left {
@@ -91,65 +99,58 @@ body {
   left: 50%;
 }
 
+/* INPUTS */
 .login-form input {
   width: 100%;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
+  padding: 1rem;         /* 🔥 más grande */
+  margin-bottom: 1.4rem;
   border: none;
   border-bottom: 4px solid #d1d5db;
-  background-color: #4f4d4d; 
+  background-color: #4f4d4d;
   outline: none;
-  font-size: 1rem;
-  border-radius: 8px; 
-
+  font-size: 1.1rem;     /* 🔥 más grande */
+  border-radius: 10px;
+  color: white;
 }
 
 .login-form input:focus {
   border-color: #FFB3DB;
 }
 
-.forgot-password {
-  text-align: right;
-  margin-bottom: 1rem;
-}
-
-.forgot-password a {
+/* FORGOT PASSWORD */
+.forgot-link {
   color: #FFB3DB;
   text-decoration: none;
+  font-size: 1rem;
 }
 
+/* SUBMIT BUTTON */
 .submit-btn {
   width: 100%;
-  padding: 0.75rem;
-  background: linear-gradient(to right, #FFB3DB);
-  color: white;
+  padding: 1rem;      /* 🔥 más grande */
+  background: #FFB3DB;
+  color: #000;        /* 🔥 letras negras */
   border: none;
-  border-radius: 9999px;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 50px;
+  font-size: 1.3rem;  /* 🔥 más grande */
+  font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.3s;
+  transition: transform 0.2s ease, opacity 0.3s ease;
 }
 
 .submit-btn:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(-2px);
 }
 
-.switch-mode {
-  text-align: center;
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.switch-mode a {
-  color: #FFB3DB;
-  text-decoration: underline;
-}
-
-/* Mostrar imagen en pantallas medianas en adelante */
+/* RESPONSIVE – Mostrar imagen en pantallas medianas */
 @media (min-width: 768px) {
   .login-image {
     display: block;
     width: 50%;
+  }
+
+  .login-form {
+    padding: 4rem;
   }
 }
