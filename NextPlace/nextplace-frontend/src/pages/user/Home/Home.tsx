@@ -9,8 +9,8 @@ import API from "../../../utils/api.js";
 import { useSearch } from "../../../context/SearchContext";
 
 export default function Home() {
-  // 🟣 No definimos un tipo para evitar errores de TS
   const [events, setEvents] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState(null);
 
   const searchCtx = useSearch();
   const debouncedQuery = searchCtx?.debouncedQuery || "";
@@ -20,7 +20,6 @@ export default function Home() {
       try {
         const res = await API.get("/events");
 
-        // 🟣 MAPEAR EVENTOS PARA INCLUIR ESTADO, HORA Y CUPOS
         const cleanEvents = res.data.map((ev) => {
           const eventDate = new Date(ev.fecha);
           const today = new Date();
@@ -47,19 +46,38 @@ export default function Home() {
     fetchEvents();
   }, []);
 
-  // 🟣 BÚSQUEDA PÚBLICA
+  // 🔥 Lógica de filtrado combinada (categoría + búsqueda)
   const filteredEvents = useMemo(() => {
-    if (!debouncedQuery) return events;
+    let result = [...events];
 
-    const q = debouncedQuery.toLowerCase();
+    // Filtrar por categoría
+    if (categoryFilter) {
+      result = result.filter((ev) => ev.categoria === categoryFilter);
+    }
 
-    return events.filter((ev) => {
-      const title = (ev.titulo || "").toLowerCase();
-      const desc = (ev.descripcion || "").toLowerCase();
-      const cat = (ev.categoria || "").toLowerCase();
-      return title.includes(q) || desc.includes(q) || cat.includes(q);
-    });
-  }, [events, debouncedQuery]);
+    // Filtrar por búsqueda
+    if (debouncedQuery) {
+      const q = debouncedQuery.toLowerCase();
+      result = result.filter((ev) => {
+        const title = (ev.titulo || "").toLowerCase();
+        const desc = (ev.descripcion || "").toLowerCase();
+        const cat = (ev.categoria || "").toLowerCase();
+        return title.includes(q) || desc.includes(q) || cat.includes(q);
+      });
+    }
+
+    return result;
+  }, [events, categoryFilter, debouncedQuery]);
+
+  // 🔥 manejar selección de categoría
+  const handleCategorySelect = (cat) => {
+    // Si clickea la misma categoría → quitar filtro
+    if (categoryFilter === cat) {
+      setCategoryFilter(null);
+    } else {
+      setCategoryFilter(cat);
+    }
+  };
 
   return (
     <>
@@ -67,11 +85,15 @@ export default function Home() {
       <div style={{ height: "100px" }}></div>
 
       <Header />
-      <ButtonsSection />
+
+      {/* 🔥 Botones dinámicos con selección */}
+      <ButtonsSection
+        onCategorySelect={handleCategorySelect}
+        activeCategory={categoryFilter}
+      />
 
       <main className="cards-container">
         {filteredEvents.length > 0 ? (
-          // @ts-ignore  ← evita errores molestos sin afectar nada
           filteredEvents.map((ev) => (
             <EventCard
               key={ev.id}

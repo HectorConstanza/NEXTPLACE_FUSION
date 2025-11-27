@@ -1,6 +1,6 @@
 import { Event } from "../models/Event.js";
 import { sendEmail } from "../services/emailService.js";
-import { Op } from "sequelize";
+import { Op, Sequelize } from "sequelize";   // 
 
 export const createEvent = async (req, res) => {
   try {
@@ -37,6 +37,7 @@ export const createEvent = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 export const getEvents = async (req, res) => {
   try {
     const events = await Event.findAll();
@@ -85,8 +86,6 @@ export const getFilteredEvents = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-
-  
 };
 
 export const getEventById = async (req, res) => {
@@ -106,14 +105,12 @@ export const getEventsByOrganizer = async (req, res) => {
     const events = await Event.findAll({ 
       where: { organizador_id } 
     });
-    
-    // Retornar array vacío si no hay eventos (no es un error)
+
     res.json(events);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 export const updateEvent = async (req, res) => {
   try {
@@ -132,3 +129,21 @@ export const updateEvent = async (req, res) => {
   }
 };
 
+/* 🟣 NUEVO: OBTENER CATEGORÍAS SIN REPETIR */
+export const getCategories = async (req, res) => {
+  try {
+    const categories = await Event.findAll({
+      attributes: [
+        [Sequelize.fn("DISTINCT", Sequelize.col("categoria")), "categoria"]
+      ]
+    });
+
+    const clean = categories
+      .map(c => c.dataValues.categoria)
+      .filter(c => c && c.trim() !== "");
+
+    res.json(clean);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
