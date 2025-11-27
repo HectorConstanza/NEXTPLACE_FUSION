@@ -114,3 +114,21 @@ export const getEventsByOrganizer = async (req, res) => {
   }
 };
 
+
+export const updateEvent = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const event = await Event.findByPk(id);
+    if (!event) {
+      return res.status(404).json({ message: "Evento no encontrado" });
+    }
+
+    await event.update(req.body);
+
+    res.json({ message: "Evento actualizado", event });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+

@@ -180,3 +180,29 @@
 .ce-submit-btn:hover {
   background: #5BC3E2;
 }
+
+/* Subida de imagen */
+.ce-image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ce-image-upload input[type="file"] {
+  background: #1d1d1d;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  color: #ccc;
+}
+
+/* Preview */
+.ce-image-preview {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid #444;
+  object-fit: cover;
+  align-self: flex-start;
+}

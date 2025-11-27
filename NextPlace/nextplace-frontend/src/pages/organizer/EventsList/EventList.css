@@ -83,3 +83,20 @@
   background: #e8f5e9;
   color: #2e7d32;
 }
+
+/* 🔥 Franja cuando no hay eventos */
+.empty-banner {
+  width: 100%;
+  padding: 18px 20px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.empty-banner-text {
+  color: #ffb3e6; /* rosa pastel NextPlace */
+  font-size: 17px;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}

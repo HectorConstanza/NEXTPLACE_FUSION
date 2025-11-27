@@ -1,24 +1,51 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./SideBar.css";
 
 export default function SideBar() {
   const navigate = useNavigate();
+  const [organizerName, setOrganizerName] = useState("");
+
+  useEffect(() => {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      setOrganizerName(user.nombre || "Organizer");
+    }
+  }, []);
 
   const handleLogout = () => {
-    // Limpiar localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    navigate("/");
+  };
 
-    // Redirigir al home
+  // 🔥 Cerrar sesión cuando tocan NEXTPLACE
+  const handleGoHomeAndLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/");
   };
 
   return (
     <div className="sidebar">
       <div className="logo-section">
-        <span className="material-symbols-rounded logo-icon">event</span>
-        <span className="logo-text">NextPlace</span>
-        <p className="logo-sub">Organizer Dashboard</p>
+
+        {/* 🔥 NEXTPLACE clickeable → home + logout */}
+        <span
+          className="logo-text"
+          style={{ cursor: "pointer" }}
+          onClick={handleGoHomeAndLogout}
+        >
+          NextPlace
+        </span>
+
+        {/* 🔥 Nombre del organizador */}
+        <span className="organizer-name-badge">
+          {organizerName}
+        </span>
+
+        <p className="logo-sub">Dashboard Organizador</p>
       </div>
 
       <nav className="nav-menu">
@@ -31,23 +58,9 @@ export default function SideBar() {
           <span className="material-symbols-rounded nav-icon">add_circle</span>
           <span>Crear Evento</span>
         </Link>
-
-        <Link to="/organizer/analytics" className="nav-item">
-          <span className="material-symbols-rounded nav-icon">insights</span>
-          <span>Analytics</span>
-        </Link>
-
-        <Link to="/organizer/asistentes" className="nav-item">
-          <span className="material-symbols-rounded nav-icon">groups</span>
-          <span>Asistentes</span>
-        </Link>
-
-        <Link to="/organizer/settings" className="nav-item">
-          <span className="material-symbols-rounded nav-icon">settings</span>
-          <span>Settings</span>
-        </Link>
       </nav>
 
+      {/* Botón de logout normal */}
       <button className="logout-btn" onClick={handleLogout}>
         <span className="material-symbols-rounded nav-icon">logout</span>
         <span>Log Out</span>

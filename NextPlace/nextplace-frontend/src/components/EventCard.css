@@ -1,72 +1,147 @@
-/* src/components/EventCard/EventCard.css */
+/* ============================
+   CARD GENERAL
+============================ */
 
 .card {
   display: flex;
   flex-direction: column;
   width: 300px;
-  height: 550px;
+  height: 70vh;
   position: relative;
   box-sizing: border-box;
   margin: 15px;
+  border-radius: 16px;           /* 🔥 redondeo bonito */
+  overflow: hidden;              
+  font-family: "Poppins", sans-serif;
 }
 
+/* ============================
+   TOP BADGES
+============================ */
+
+/* Categoría (izquierda) */
+.category-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  color: black;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 0 0 0 10px; 
+  z-index: 10;
+}
+
+/* Estado (derecha) */
 .tag {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: white;
-  color: black;
+
   padding: 5px 10px;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+
   border-radius: 0 0 0 10px;
   z-index: 10;
+
+  background: white;
+  color: black;
 }
+
+/* COLORES SEGÚN ESTADO */
+.tag-próximamente {
+  background: #7cdaf9;
+  color: #000;
+}
+
+.tag-en\ curso {
+  background: #d29bff;
+  color: #000;
+}
+
+.tag-finalizado {
+  background: #999;
+  color: white;
+}
+
+.tag-agotado {
+  background: #ff6b6b;
+  color: white;
+}
+
+.tag-disponible {
+  background: #8df57b;
+  color: #000;
+}
+
+/* ============================
+   IMAGE
+============================ */
 
 .card-image {
   width: 100%;
-  height: 400px;
+  height: 600px;
   object-fit: cover;
   border-radius: 10px;
 }
+
+/* ============================
+   BODY
+============================ */
 
 .card-content {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding: 30px 15px 10px 15px;
-  gap: 10px;
+  padding: 20px 15px 10px 15px;
+  gap: 8px;
 }
 
-.title {
-  font-weight: 400;
-  font-size: 16px;
-}
-
-.date {
+.title, date, cupos {
   font-weight: 600;
-  font-size: 14px;
-  color: #aaa;
+  font-size: 18px;
+  color:#ffffff
 }
 
-.reserve-button {
-  margin-top: auto;
-  padding: 8px 15px;
-  font-weight: 800;
-  font-size: 14px;
+
+
+/* ============================
+   BOTONES
+============================ */
+
+.event-card-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border: 1px solid #ddd;
+  padding: 8px 14px;
   border-radius: 8px;
-  border: none;
   cursor: pointer;
-  background-color: white;
-  color: black;
-  transition: background-color 0.2s;
+  transition: 0.2s ease-in-out;
 }
 
-.reserve-button:hover {
-  background-color: #ddd;
+.event-card-btn:hover {
+  background: #f2f2f2 !important;
 }
 
-/* BOTONES ADMIN (dashboard organizer) */
+/* RESERVAR botón (público) */
+.reserve-btn {
+  background: #7cdaf9 !important;
+  color: #000 !important;
+  border: none !important;
+  font-weight: 800 !important;
+}
+
+.reserve-btn:hover {
+  background: #5bc3e2 !important;
+}
+
+/* ============================
+   ADMIN BUTTONS (organizer)
+============================ */
+
 .admin-buttons {
   margin-top: auto;
   display: flex;
@@ -76,19 +151,12 @@
 
 .admin-buttons button {
   flex: 1;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
-  font-size: 14px;
 }
 
-.admin-buttons button:hover {
-  background: #f0f0f0;
-}
+/* ============================
+   GRID (ya lo tienes pero lo dejo)
+============================ */
 
-/* GRID GENERAL */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -98,6 +166,15 @@
   padding: 20px;
   padding-bottom: 100px;
 }
+
+.info-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
 
 @media (max-width: 1024px) {
   .cards-container {
@@ -109,21 +186,4 @@
   .cards-container {
     grid-template-columns: 1fr;
   }
-}
-
-
-.event-card-btn {
-  background: #ffffff !important;
-  color: #000 !important;
-  font-family: "Poppins", sans-serif !important;
-  font-weight: 600 !important;
-  border: 1px solid #ddd;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-}
-
-.event-card-btn:hover {
-  background: #f2f2f2 !important;
 }

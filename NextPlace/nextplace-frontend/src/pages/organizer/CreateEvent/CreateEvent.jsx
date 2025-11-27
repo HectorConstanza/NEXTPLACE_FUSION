@@ -6,15 +6,49 @@ import EventForm from "./EventForm";
 export default function CreateEvent() {
   const navigate = useNavigate();
 
+  const showAlert = (title, text, icon) => {
+    return Swal.fire({
+      title,
+      text,
+      icon,
+      background: "#1c1c1c",       //  fondo negro
+      color: "#ffffff",            //  texto blanco
+      iconColor: "#7CDAF9",        //  color del ícono (celestito NextPlace)
+      confirmButtonColor: "#7CDAF9",
+      confirmButtonText: "Aceptar",
+    });
+  };
+
   const handleCreate = async (formData) => {
     try {
       const organizer = JSON.parse(localStorage.getItem("user"));
 
       if (!organizer || organizer.role !== "organizer") {
-        return Swal.fire("Error", "Solo los organizadores pueden crear eventos", "error");
+        return showAlert("Error", "Solo los organizadores pueden crear eventos", "error");
       }
 
-      // Combinar fecha + hora → formato aceptado por MySQL
+      // 🔍 Validación de campos obligatorios
+      const requiredFields = [
+        { field: "eventName", text: "Nombre del evento" },
+        { field: "date", text: "Fecha" },
+        { field: "time", text: "Hora" },
+        { field: "location", text: "Ubicación" },
+        { field: "category", text: "Categoría" },
+        { field: "description", text: "Descripción" },
+        { field: "availableSeats", text: "Cupos disponibles" },
+      ];
+
+      for (const item of requiredFields) {
+        if (!formData[item.field] || formData[item.field].toString().trim() === "") {
+          return showAlert(
+            "Campo incompleto",
+            `El campo "${item.text}" es obligatorio.`,
+            "warning"
+          );
+        }
+      }
+
+      // Combinar fecha + hora → formato SQL
       const fullDate = `${formData.date} ${formData.time}:00`;
 
       const eventData = {
@@ -23,7 +57,7 @@ export default function CreateEvent() {
         categoria: formData.category,
         lugar: formData.location,
         fecha: fullDate,
-        cupos: formData.availableSeats ? Number(formData.availableSeats) : 0,
+        cupos: Number(formData.availableSeats),
         organizador_id: organizer.id,
       };
 
@@ -31,11 +65,14 @@ export default function CreateEvent() {
 
       await API.post("/events", eventData);
 
-      Swal.fire("Éxito", "Evento creado correctamente", "success");
+      await showAlert("Éxito", "Evento creado correctamente", "success");
+
       navigate("/organizer");
+
     } catch (error) {
       console.error("Error al crear evento:", error);
-      Swal.fire(
+
+      showAlert(
         "Error",
         error.response?.data?.message || "No se pudo crear el evento",
         "error"

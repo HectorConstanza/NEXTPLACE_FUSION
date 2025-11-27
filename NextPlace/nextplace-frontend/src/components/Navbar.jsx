@@ -1,11 +1,11 @@
-
+// src/components/Navbar.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../utils/api.js"; // helper axios con baseURL
+import API from "../utils/api.js";
 import "./Navbar.css";
 import { useSearch } from "../context/SearchContext";
 
-const Navbar = () => {
+export default function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const { searchTerm, setSearchTerm } = useSearch();
@@ -13,7 +13,7 @@ const Navbar = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
-      if (!token) return; // si no hay token, no hay sesión
+      if (!token) return;
 
       try {
         const res = await API.get("/users/profile", {
@@ -21,19 +21,13 @@ const Navbar = () => {
         });
         setUser(res.data.user);
       } catch (err) {
-        console.error("Error al obtener usuario", err);
-        // si el token es inválido, limpiar sesión
+        console.log("Error obteniendo usuario:", err);
         localStorage.removeItem("token");
-        setUser(null);
       }
     };
 
     fetchUser();
   }, []);
-
-  const handleSignIn = () => {
-    navigate("/login");
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -41,42 +35,43 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const handleSignIn = () => navigate("/login");
+
   return (
     <nav id="navbar">
       <div className="navbar-content">
-        {/* Logo */}
-        <a href="#" className="navbar-logo">
-          NextPlace
-        </a>
 
-        {/* Links */}
-        <div className="navbar-links flex">
-          <a href="#">Eventos</a>
-          <a href="#">Organizadores</a>
-          <a href="#">Reservas</a>
+        {/* LOGO */}
+        <span
+          className="navbar-logo"
+          onClick={() => navigate("/")}
+          style={{ cursor: "pointer" }}
+        >
+          NextPlace
+        </span>
+
+        {/* LINKS */}
+        <div className="navbar-links">
+          <a>Eventos</a>
+          <a>Organizadores</a>
+          <a>Reservas</a>
         </div>
 
-        {/* Acciones (incluye búsqueda) */}
-        <div className="navbar-actions" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <div className="navbar-search" style={{ display: "flex", alignItems: "center" }}>
-            <input
-              type="search"
-              placeholder="Buscar eventos..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="nav-search-input"
-              aria-label="Buscar eventos"
-              style={{ padding: "0.4rem 0.5rem", borderRadius: 6, border: "1px solid #ddd" }}
-            />
-          </div>
-          
-          
-          
-        
-        
+        {/* ACTIONS */}
+        <div className="navbar-actions">
+          <input
+            type="search"
+            placeholder="Buscar eventos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="nav-search-input"
+          />
+
+          {/* USER AUTH */}
           {user ? (
             <>
-              <span className="navbar-user"> {user.nombre}</span>
+              <span className="navbar-user">{user.nombre}</span>
+
               <button className="sign-out-button" onClick={handleLogout}>
                 Logout
               </button>
@@ -90,6 +85,4 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}

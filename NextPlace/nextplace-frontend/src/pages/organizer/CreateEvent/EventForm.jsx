@@ -18,10 +18,19 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
     availableSeats: "",
   });
 
-  /* Si estamos en modo edición, cargamos los datos iniciales */
+  /* Nueva propiedad para imagen */
+  const [imageFile, setImageFile] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  /* Si estamos en edición, cargar datos */
   useEffect(() => {
     if (mode === "edit" && initialData) {
       setFormData(initialData);
+
+      // Cargar imagen existente si viene desde el backend
+      if (initialData.imageUrl) {
+        setPreviewImage(initialData.imageUrl);
+      }
     }
   }, [mode, initialData]);
 
@@ -33,9 +42,34 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
     }));
   };
 
+  /* Manejar imagen */
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setImageFile(file);
+
+    // Previsualización instantánea
+    const reader = new FileReader();
+    reader.onload = () => setPreviewImage(reader.result);
+    reader.readAsDataURL(file);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    // Armamos un FormData si hay imagen
+    const dataToSend = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      dataToSend.append(key, formData[key]);
+    });
+
+    if (imageFile) {
+      dataToSend.append("image", imageFile);
+    }
+
+    onSubmit(dataToSend);
   };
 
   return (
@@ -51,7 +85,6 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
         {mode === "edit" ? "Actualizar Evento" : "Crear Evento"}
       </div>
 
-      {/* Main */}
       <main className="ce-main">
         <div className="ce-card">
 
@@ -66,6 +99,29 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
           </div>
 
           <form className="ce-form" onSubmit={handleSubmit}>
+
+            {/* -------------- NUEVA SECCIÓN DE IMAGEN -------------- */}
+            <div className="ce-field">
+              <label>Imagen del Evento (máx 1)*</label>
+
+              <div className="ce-image-upload">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+
+                {/* Preview */}
+                {previewImage && (
+                  <img
+                    src={previewImage}
+                    alt="Preview"
+                    className="ce-image-preview"
+                  />
+                )}
+              </div>
+            </div>
+            {/* ------------------------------------------------------ */}
 
             {/* Nombre */}
             <div className="ce-field">
@@ -139,10 +195,9 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
                   onChange={handleChange}
                 >
                   <option value="" disabled>Selecciona una categoría</option>
-                  <option value="tecnologia">Tecnología</option>
-                  <option value="musica">Música</option>
-                  <option value="arte">Arte y Cultura</option>
-                  <option value="deportes">Deportes</option>
+                  <option value="Tecnología">Tecnología</option>
+                  <option value="Música">Música</option>
+                  <option value="Arte">Arte y Cultura</option>
                 </select>
                 <FormIcon className="icon-right">expand_more</FormIcon>
               </div>
@@ -163,7 +218,7 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
               <p className="ce-counter">{formData.description.length}/750 caracteres</p>
             </div>
 
-            {/* Cupos disponibles */}
+            {/* Cupos */}
             <div className="ce-field">
               <label htmlFor="availableSeats">Cupos disponibles*</label>
               <div className="ce-input-icon">
@@ -180,7 +235,7 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
               </div>
             </div>
 
-            {/* Botón dinámico */}
+            {/* Botón */}
             <button className="ce-submit-btn">
               {mode === "edit" ? "Actualizar Evento" : "Crear Evento"}
             </button>
