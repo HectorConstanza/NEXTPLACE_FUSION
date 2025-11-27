@@ -7,6 +7,7 @@ export const Event = sequelize.define("Evento", {
   descripcion: { type: DataTypes.TEXT },
   categoria: { type: DataTypes.STRING },
   lugar: { type: DataTypes.STRING },
+  imagen: { type: DataTypes.STRING }, 
   fecha: { type: DataTypes.DATE, allowNull: false },
   cupos: { type: DataTypes.INTEGER, allowNull: false },
   cuposDispo: { type: DataTypes.INTEGER, allowNull: false },
@@ -14,5 +15,5 @@ export const Event = sequelize.define("Evento", {
 }, {
   tableName: "evento",
   timestamps: true,
-  paranoid: true 
+  paranoid: true
 });

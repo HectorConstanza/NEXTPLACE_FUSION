@@ -37,7 +37,10 @@ export default function Home() {
               titulo={ev.titulo}
               fecha={ev.fecha}
               categoria={ev.categoria}
-              image={"/src/assets/images/ejemplo.jpg"} // opcional si tu modelo no guarda imagen
+             image={
+                ev.imagen
+                  ? `http://localhost:4000/${ev.imagen}`
+                  : "/src/assets/images/ejemplo.jpg"} // opcional si tu modelo no guarda imagen
             />
           ))
         ) : (

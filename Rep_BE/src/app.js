@@ -10,6 +10,7 @@ import eventRoutes from "./routes/eventRoutes.js";
 import organizerRoutes from "./routes/organizerRoutes.js";
 import reservaRoutes from "./routes/reservaRoutes.js";
 
+
 dotenv.config();
 
 const app = express();
@@ -30,6 +31,8 @@ app.use("/api/events", eventRoutes);
 app.use("/api/organizers", organizerRoutes);
 app.use("/api/reservas", reservaRoutes);
 app.use("/api/users", userRoutes);
+app.use("/uploads", express.static("src/uploads"));
+
 
 // ✅ Manejo de errores
 app.use((err, req, res, next) => {

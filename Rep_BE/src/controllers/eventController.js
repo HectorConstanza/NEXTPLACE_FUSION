@@ -20,14 +20,17 @@ export const createEvent = async (req, res) => {
       });
     }
 
+    const imagenPath = req.file ? `uploads/eventos/${req.file.filename}` : null;
+
     const event = await Event.create({
       titulo,
       descripcion,
       categoria,
       lugar,
       fecha,
+      imagen: imagenPath,      
       cupos,
-      cuposDispo: cupos, 
+      cuposDispo: cupos,
       organizador_id
     });
 
@@ -37,6 +40,8 @@ export const createEvent = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+
 export const getEvents = async (req, res) => {
   try {
     const events = await Event.findAll();
