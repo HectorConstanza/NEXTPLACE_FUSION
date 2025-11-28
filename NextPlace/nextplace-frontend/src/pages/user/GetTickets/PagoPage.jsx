@@ -8,7 +8,7 @@ import "./css/Pago.css";
 function PagoPage() {
   const navigate = useNavigate();
 
-  // 🔥 Leer monto total desde localStorage
+  // Leer monto total desde localStorage
   const monto = localStorage.getItem("monto_total") || "0.00";
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function PagoPage() {
         window.paypal
           .Buttons({
             createOrder: (data, actions) => {
-              // 🔥 Usar el total real del usuario
+              // Usar el total real del usuario
               return actions.order.create({
                 purchase_units: [
                   {

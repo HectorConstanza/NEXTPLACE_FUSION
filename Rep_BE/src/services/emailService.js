@@ -25,7 +25,7 @@ const createTransporter = () => {
 
 const transporter = createTransporter();
 
-// ⭐ Verificar el transporter al iniciar el servidor
+// Verificar el transporter al iniciar el servidor
 transporter
   .verify()
   .then(() => console.log("📧 Email transporter listo para enviar correos"))
@@ -33,7 +33,7 @@ transporter
     console.warn("❌ Falló verificación del transporter:", err.message)
   );
 
-// ⭐ Función para enviar emails
+// Función para enviar emails
 export const sendEmail = async ({ to, subject, html }) => {
   try {
     const info = await transporter.sendMail({

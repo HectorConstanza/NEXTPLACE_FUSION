@@ -38,19 +38,16 @@ export default function Navbar() {
 
   const handleSignIn = () => navigate("/login");
 
-  //  EVENTOS → Refrescar home
   const goToEvents = () => {
     navigate("/");
-    window.location.reload(); // refresca la página
+    window.location.reload();
   };
 
-  //  NEXTPLACE → refresca home sin navegar
   const reloadHome = () => {
     navigate("/");
     window.location.reload();
   };
 
-  //  ORGANIZADORES → Validar rol
   const goToOrganizers = () => {
     if (!user) {
       Swal.fire({

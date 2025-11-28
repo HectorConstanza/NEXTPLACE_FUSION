@@ -7,7 +7,7 @@ import Footer from "../../../components/Footer";
 import API from "../../../utils/api.js";
 import { useSearch } from "../../../context/SearchContext";
 
-// ⭐ ENLACE AL CSS
+// ENLACE AL CSS
 import "./Home.css";
 
 export default function Home() {
@@ -49,7 +49,7 @@ export default function Home() {
     fetchEvents();
   }, []);
 
-  // ⭐ Filtrado combinado
+  // Filtrado combinado
   const filteredEvents = useMemo(() => {
     let result = [...events];
 

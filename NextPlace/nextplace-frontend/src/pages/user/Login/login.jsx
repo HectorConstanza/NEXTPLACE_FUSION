@@ -19,7 +19,6 @@ const Login = ({ onLoginSuccess }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 🌙💗 ALERTA GLOBAL
   const showAlert = (title, text, icon) => {
     return Swal.fire({
       title,
@@ -39,9 +38,6 @@ const Login = ({ onLoginSuccess }) => {
     try {
       let response;
 
-      // ========================================================
-      // 🔹 LOGIN
-      // ========================================================
       if (isLoginMode) {
         try {
           // Intentar login como usuario
@@ -88,9 +84,6 @@ const Login = ({ onLoginSuccess }) => {
         }
       }
 
-      // ========================================================
-      // 🔹 REGISTRO
-      // ========================================================
       try {
         response = await API.post("/users/register", formData);
 

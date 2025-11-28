@@ -30,9 +30,6 @@ export default function Perfil() {
     fetchUser();
   }, []);
 
-  // ============================================================
-  // VALIDACIÓN: solo letras y espacios
-  // ============================================================
   const handleNameChange = (e) => {
     const value = e.target.value;
 
@@ -44,9 +41,6 @@ export default function Perfil() {
     }
   };
 
-  // ============================================================
-  // Guardar cambios
-  // ============================================================
   const handleSave = async () => {
     try {
       await API.put("/users/update", {
@@ -80,7 +74,7 @@ export default function Perfil() {
           <input
             type="text"
             value={user.nombre}
-            onChange={handleNameChange} // VALIDACIÓN
+            onChange={handleNameChange} 
             maxLength={30}
           />
 

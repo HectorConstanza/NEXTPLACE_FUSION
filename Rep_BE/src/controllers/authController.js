@@ -3,9 +3,6 @@ import bcrypt from "bcrypt";
 import { User, UserTokenR } from "../models/index.js";
 import { sendEmail } from "../services/emailService.js";
 
-// ======================================================
-//  FORGOT PASSWORD
-// ======================================================
 export const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -17,7 +14,6 @@ export const forgotPassword = async (req, res) => {
       where: { correoElectronico: email },
     });
 
-    // 🔒 No revelamos si el usuario existe o no
     if (!user) {
       return res.json({
         message:
@@ -25,7 +21,6 @@ export const forgotPassword = async (req, res) => {
       });
     }
 
-    // ⭐ Generar token
     const rawToken = crypto.randomBytes(32).toString("hex");
     const hashedToken = crypto
       .createHash("sha256")
@@ -34,18 +29,15 @@ export const forgotPassword = async (req, res) => {
 
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hora
 
-    // ⭐ Guardar en BD
     await UserTokenR.create({
       usuario_id: user.id,
       token: hashedToken,
       fechaV: expiresAt,
     });
 
-    // ⭐ Crear link hacia el FRONT
     const frontUrl = process.env.FRONTEND_URL || "http://localhost:5173";
     const resetLink = `${frontUrl}/reset-password?token=${rawToken}&id=${user.id}`;
 
-    // ⭐ Email HTML
     const html = `
       <h2>Hola ${user.nombre} 💗</h2>
       <p>Recibimos una solicitud para restablecer tu contraseña.</p>
@@ -67,7 +59,6 @@ export const forgotPassword = async (req, res) => {
       </p>
     `;
 
-    // ⭐ Enviar correo
     await sendEmail({
       to: user.correoElectronico,
       subject: "Recuperar contraseña - NextPlace",
@@ -84,9 +75,6 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-// ======================================================
-// 🔐 RESET PASSWORD
-// ======================================================
 export const resetPassword = async (req, res) => {
   try {
     const { userId, token, newPassword } = req.body;
@@ -114,23 +102,23 @@ export const resetPassword = async (req, res) => {
         message: "El enlace no es válido o ya fue utilizado.",
       });
 
-    // ⭐ Token expirado
+    // Token expirado
     if (new Date(tokenRow.fechaV) < new Date()) {
       await UserTokenR.destroy({ where: { id: tokenRow.id } });
       return res.status(400).json({ message: "El enlace ha expirado." });
     }
 
-    // ⭐ Encriptar password
+    // Encriptar password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
-    // ⭐ Actualizar usuario
+    // Actualizar usuario
     await User.update(
       { contrasena: hashedPassword },
       { where: { id: userId } }
     );
 
-    // ⭐ Borrar token para evitar uso doble
+    // Borrar token para evitar uso doble
     await UserTokenR.destroy({ where: { id: tokenRow.id } });
 
     return res.json({

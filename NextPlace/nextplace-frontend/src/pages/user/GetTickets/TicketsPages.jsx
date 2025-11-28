@@ -12,7 +12,7 @@ function TicketsPage() {
   const [event, setEvent] = useState(null);
   const [cantidad, setCantidad] = useState(0);
 
-  // 🔹 Cargar evento normalmente
+  // Cargar evento normalmente
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -25,12 +25,12 @@ function TicketsPage() {
     fetchEvent();
   }, [eventId]);
 
-  // 🔹 CONTINUAR → Validar sesión + reserva
+  // CONTINUAR → Validar sesión + reserva
   const handleContinue = async () => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user"));
 
-    // ❌ NO LOGEADO → SWEETALERT + REDIRECCIÓN
+    // NO LOGEADO → SWEETALERT + REDIRECCIÓN
     if (!token || !user) {
       Swal.fire({
         title: "Inicia sesión",
@@ -43,7 +43,7 @@ function TicketsPage() {
       return;
     }
 
-    // ❌ SIN TICKETS
+    // SIN TICKETS
     if (cantidad <= 0) {
       Swal.fire({
         title: "Selecciona una cantidad",
@@ -54,7 +54,7 @@ function TicketsPage() {
       return;
     }
 
-    // ❌ SIN DISPONIBILIDAD
+    // SIN DISPONIBILIDAD
     if (cantidad > event.cuposDispo) {
       Swal.fire({
         title: "No hay suficientes tickets",
@@ -65,7 +65,7 @@ function TicketsPage() {
       return;
     }
     localStorage.setItem("monto_total", event.costo * cantidad);
-    // ✔ Crear reserva
+    // Crear reserva
     try {
       const res = await API.post(
         "/reservas",

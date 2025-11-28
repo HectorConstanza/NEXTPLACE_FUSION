@@ -20,7 +20,6 @@ export default function SideBar() {
     navigate("/");
   };
 
-  // 🔥 Cerrar sesión cuando tocan NEXTPLACE
   const handleGoHomeAndLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -31,7 +30,7 @@ export default function SideBar() {
     <div className="sidebar">
       <div className="logo-section">
 
-        {/* 🔥 NEXTPLACE clickeable → home + logout */}
+        {/*NEXTPLACE clickeable → home + logout */}
         <span
           className="logo-text"
           style={{ cursor: "pointer" }}
@@ -40,7 +39,7 @@ export default function SideBar() {
           NextPlace
         </span>
 
-        {/* 🔥 Nombre del organizador */}
+        {/*Nombre del organizador */}
         <span className="organizer-name-badge">
           {organizerName}
         </span>

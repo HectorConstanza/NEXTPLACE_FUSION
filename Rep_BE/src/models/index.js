@@ -9,9 +9,7 @@ import { UserTokenR } from "./UserTokenR.js";
 import { OrgTokenR } from "./OrgTokenR.js";
 import { HistoricoReserva } from "./HistoricoReserva.js";
 
-
 import "./associations.js";
-
 
 export {
   sequelize,

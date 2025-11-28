@@ -26,7 +26,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// ⭐ AQUI ESTA TU FIX REAL ⭐
 app.use("/uploads", express.static(path.join(__dirname, "src/uploads")));
 
 app.use("/api/users", userRoutes);

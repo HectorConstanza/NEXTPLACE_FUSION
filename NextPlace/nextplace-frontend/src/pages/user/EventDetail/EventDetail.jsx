@@ -12,7 +12,7 @@ export default function EventDetail() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        // 🔥 RUTA CORRECTA DEL BACKEND
+        // RUTA CORRECTA DEL BACKEND
         const res = await API.get(`/api/events/${id}`);
 
         console.log("EVENT DETAIL DATA:", res.data); // debug

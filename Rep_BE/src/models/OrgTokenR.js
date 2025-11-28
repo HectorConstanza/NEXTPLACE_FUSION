@@ -44,6 +44,5 @@ export const OrgTokenR = sequelize.define("OrgTokenR", {
   ]
 });
 
-// Relaciones
 Organizer.hasMany(OrgTokenR, { foreignKey: "organizador_id" });
 OrgTokenR.belongsTo(Organizer, { foreignKey: "organizador_id" });

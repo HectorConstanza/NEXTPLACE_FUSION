@@ -3,9 +3,6 @@ import { Op } from "sequelize";
 import { Reserva } from "../models/Reserva.js";
 import { User } from "../models/User.js";
 
-// =====================================
-// CREAR EVENTO
-// =====================================
 export const createEvent = async (req, res) => {
   try {
     const {
@@ -64,9 +61,6 @@ export const createEvent = async (req, res) => {
   }
 };
 
-// =====================================
-// OBTENER TODOS LOS EVENTOS
-// =====================================
 export const getEvents = async (req, res) => {
   try {
     const events = await Event.findAll();
@@ -76,9 +70,6 @@ export const getEvents = async (req, res) => {
   }
 };
 
-// =====================================
-// EVENTOS FILTRADOS
-// =====================================
 export const getFilteredEvents = async (req, res) => {
   try {
     const { categoria, fecha, lugar, randomSearch } = req.body;
@@ -121,9 +112,6 @@ export const getFilteredEvents = async (req, res) => {
   }
 };
 
-// =====================================
-// OBTENER EVENTO POR ID (CORREGIDO ✔ CON IMAGEN)
-// =====================================
 export const getEventById = async (req, res) => {
   try {
     const event = await Event.findByPk(req.params.id, {
@@ -152,9 +140,7 @@ export const getEventById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-// =====================================
-// EVENTOS POR ORGANIZADOR
-// =====================================
+
 export const getEventsByOrganizer = async (req, res) => {
   try {
     const organizador_id = req.params.organizador_id;

@@ -98,7 +98,7 @@
 /* Logout */
 .logout-btn {
   margin-top: auto;
-  margin-bottom: 15px; /* más espacio del borde */
+  margin-bottom: 15px;
   width: 100%;
   display: flex;
   align-items: center;

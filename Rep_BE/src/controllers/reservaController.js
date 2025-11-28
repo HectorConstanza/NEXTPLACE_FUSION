@@ -5,9 +5,6 @@ import { User } from "../models/User.js";
 import { HistoricoReserva } from "../models/HistoricoReserva.js";
 import { sequelize } from "../config/db.js";
 
-// ======================================================
-// Reserva con cantidad múltiple
-// ======================================================
 export const createReserva = async (req, res) => {
   const t = await sequelize.transaction();
   try {
@@ -89,9 +86,6 @@ export const createReserva = async (req, res) => {
   }
 };
 
-// ======================================================
-// Obtener reservas del usuario autenticado
-// ======================================================
 export const getMisReservas = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -119,9 +113,6 @@ export const getMisReservas = async (req, res) => {
   }
 };
 
-// ======================================================
-// Cancelar reserva
-// ======================================================
 export const cancelReserva = async (req, res) => {
   const t = await sequelize.transaction();
   try {
