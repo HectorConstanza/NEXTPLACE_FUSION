@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2025 a las 03:57:44
+-- Tiempo de generación: 28-11-2025 a las 17:15:10
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,8 +53,9 @@ CREATE TABLE `evento` (
 INSERT INTO `evento` (`id`, `titulo`, `descripcion`, `categoria`, `lugar`, `fecha`, `cupos`, `organizador_id`, `cuposDispo`, `createdAt`, `updatedAt`, `deletedAt`, `imagen`, `costo`) VALUES
 (1, 'Concierto de Rock', 'Bandas locales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 200, '2025-11-20 01:01:49', '2025-11-20 01:22:11', NULL, NULL, 0.00),
 (2, 'Concierto de Manuel Turizo', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 199, '2025-11-20 01:31:21', '2025-11-28 01:51:39', NULL, NULL, 0.00),
-(3, 'Concierto Bad bunny', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 199, '2025-11-20 01:44:08', '2025-11-28 01:52:00', NULL, NULL, 0.00),
-(4, 'Franco Escamilla', 'Evento de franco escamilla', 'Arte y Cultura', 'Santa Tecla', '2025-12-01 07:00:00', 140, 2, 131, '2025-11-28 01:57:32', '2025-11-28 02:55:52', NULL, 'uploads/eventos/1764295052222-912413879.jpg', 0.00);
+(3, 'Concierto Bad bunny', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 196, '2025-11-20 01:44:08', '2025-11-28 13:38:14', NULL, NULL, 0.00),
+(4, 'Franco Escamilla', 'Evento de franco escamilla', 'Arte y Cultura', 'Santa Tecla', '2025-12-01 20:00:00', 140, 2, 133, '2025-11-28 01:57:32', '2025-11-28 14:29:07', NULL, 'uploads/eventos/1764295052222-912413879.jpg', 0.00),
+(5, 'Foster the people', 'Este es un evento de prueba', 'Música', 'Estadio Cuscatlan', '2025-11-30 16:00:00', 100, 2, 97, '2025-11-28 15:57:35', '2025-11-28 16:11:28', NULL, 'uploads/eventos/1764345455128-47301388.jpg', 0.00);
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,15 @@ INSERT INTO `historicoreserva` (`id`, `reserva_id`, `fechaCambio`, `estadoAnteri
 (3, 9, '2025-11-28 02:45:40', NULL, 'confirmada'),
 (4, 10, '2025-11-28 02:46:01', NULL, 'confirmada'),
 (5, 11, '2025-11-28 02:55:05', NULL, 'confirmada'),
-(6, 12, '2025-11-28 02:55:52', NULL, 'confirmada');
+(6, 12, '2025-11-28 02:55:52', NULL, 'confirmada'),
+(7, 12, '2025-11-28 13:36:14', 'confirmada', 'cancelada'),
+(8, 11, '2025-11-28 13:37:08', 'confirmada', 'cancelada'),
+(9, 10, '2025-11-28 13:37:09', 'confirmada', 'cancelada'),
+(10, 13, '2025-11-28 13:38:14', NULL, 'confirmada'),
+(11, 14, '2025-11-28 13:38:36', NULL, 'confirmada'),
+(12, 15, '2025-11-28 15:58:17', NULL, 'confirmada'),
+(13, 15, '2025-11-28 15:59:14', 'confirmada', 'cancelada'),
+(14, 16, '2025-11-28 16:11:28', NULL, 'confirmada');
 
 -- --------------------------------------------------------
 
@@ -164,7 +173,10 @@ CREATE TABLE `orgtokenr` (
 
 INSERT INTO `orgtokenr` (`id`, `organizador_id`, `token`, `fechaC`, `fechaV`) VALUES
 (3, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDI5NDI1MSwiZXhwIjoxNzY0Mjk3ODUxfQ.YPC-Y3qhOquTy-uvBieYDkTwHwYrjpZ', '2025-11-28 01:44:11', '2025-11-28 02:44:11'),
-(4, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDI5NTAyMSwiZXhwIjoxNzY0Mjk4NjIxfQ.RhTX4ANUZuNcoqVGNPJQTdUGqtOQgZU', '2025-11-28 01:57:01', '2025-11-28 02:57:01');
+(4, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDI5NTAyMSwiZXhwIjoxNzY0Mjk4NjIxfQ.RhTX4ANUZuNcoqVGNPJQTdUGqtOQgZU', '2025-11-28 01:57:01', '2025-11-28 02:57:01'),
+(5, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDMzODY5MCwiZXhwIjoxNzY0MzQyMjkwfQ.iLMOYH5vzlfSYUJ1yi4m9SHABrTjgqp', '2025-11-28 14:04:50', '2025-11-28 15:04:50'),
+(6, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDM0MDAzOSwiZXhwIjoxNzY0MzQzNjM5fQ.chLN-sP1TDpvn4AjV8Bk04jG4jrrubX', '2025-11-28 14:27:19', '2025-11-28 15:27:19'),
+(7, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDM0NDQ0OCwiZXhwIjoxNzY0MzQ4MDQ4fQ.1muTh-ixEU76Z7eAt4wCRqtzzjB3ttx', '2025-11-28 15:40:48', '2025-11-28 16:40:48');
 
 -- --------------------------------------------------------
 
@@ -195,9 +207,13 @@ INSERT INTO `reserva` (`id`, `usuario_id`, `evento_id`, `fechaReserva`, `estado`
 (7, 10, 4, '2025-11-28 02:13:03', 'confirmada', 1),
 (8, 10, 4, '2025-11-28 02:22:23', 'confirmada', 1),
 (9, 10, 4, '2025-11-28 02:45:40', 'confirmada', 1),
-(10, 10, 4, '2025-11-28 02:46:01', 'confirmada', 1),
-(11, 10, 4, '2025-11-28 02:55:05', 'confirmada', 2),
-(12, 10, 4, '2025-11-28 02:55:52', 'confirmada', 1);
+(10, 10, 4, '2025-11-28 02:46:01', 'cancelada', 1),
+(11, 10, 4, '2025-11-28 02:55:05', 'cancelada', 2),
+(12, 10, 4, '2025-11-28 02:55:52', 'cancelada', 1),
+(13, 10, 3, '2025-11-28 13:38:14', 'confirmada', 3),
+(14, 10, 4, '2025-11-28 13:38:36', 'confirmada', 2),
+(15, 10, 5, '2025-11-28 15:58:17', 'cancelada', 4),
+(16, 10, 5, '2025-11-28 16:11:28', 'confirmada', 3);
 
 -- --------------------------------------------------------
 
@@ -221,7 +237,12 @@ INSERT INTO `usertokenr` (`id`, `usuario_id`, `token`, `fechaC`, `fechaV`) VALUE
 (3, 9, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImF0dGVuZGVlIiwiaWF0IjoxNzYzNjAzMDI2LCJleHAiOjE3NjM2MTM4MjZ9.1XpN7N7MUnwaYzAUuq7izR02r5SZ0jH15IoMO-Cn9SU', '2025-11-20 01:43:46', '2025-11-20 04:43:46'),
 (4, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NDY3MiwiZXhwIjoxNzY0MzA1NDcyfQ.OanVtRJY6WIjfJ18QnoTg_dm0xfdKiF9wfHRoYK3j8U', '2025-11-28 01:51:12', '2025-11-28 04:51:12'),
 (5, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NTA3MywiZXhwIjoxNzY0MzA1ODczfQ.QENLB4ihiCabx9nHoaZUTo8mLfZPtfEXSepQZMA2q2c', '2025-11-28 01:57:53', '2025-11-28 04:57:53'),
-(6, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NjMzMiwiZXhwIjoxNzY0MzA3MTMyfQ.5v_05K4Hy3IF-XbuOMyIRPDdDHjJkYOV2Ebx6F_-90o', '2025-11-28 02:18:52', '2025-11-28 05:18:52');
+(6, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NjMzMiwiZXhwIjoxNzY0MzA3MTMyfQ.5v_05K4Hy3IF-XbuOMyIRPDdDHjJkYOV2Ebx6F_-90o', '2025-11-28 02:18:52', '2025-11-28 05:18:52'),
+(7, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDMzNTkzNSwiZXhwIjoxNzY0MzQ2NzM1fQ.uBeoqByoD8e44ixRJeLzph08oKlwOCCU6hVfFSnrIf4', '2025-11-28 13:18:55', '2025-11-28 16:18:55'),
+(8, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDMzODI0OCwiZXhwIjoxNzY0MzQ5MDQ4fQ.KmO83W_yGeh87DMDyMWXXcHnv0Y2Rch7tvCriNBiA5Q', '2025-11-28 13:57:28', '2025-11-28 16:57:28'),
+(9, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDMzODg0MiwiZXhwIjoxNzY0MzQ5NjQyfQ.Z_CcDn3FntcHkpkWGukCmyU2ikhoxJ_LoqgJ-4Esyig', '2025-11-28 14:07:22', '2025-11-28 17:07:22'),
+(10, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDM0NTQ4OCwiZXhwIjoxNzY0MzU2Mjg4fQ.WFt0PNGzYUwgCy7AUqhoV6EMfta0zpsmkZmg_HfwBTE', '2025-11-28 15:58:08', '2025-11-28 18:58:08'),
+(11, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDM0NjI3MywiZXhwIjoxNzY0MzU3MDczfQ.DjIFhgMf6XVkPxgV4g6kAnydDxb409irGef8DcQKV8c', '2025-11-28 16:11:13', '2025-11-28 19:11:13');
 
 -- --------------------------------------------------------
 
@@ -353,7 +374,7 @@ ALTER TABLE `usuarioeventofavorito`
 -- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `extras`
@@ -371,7 +392,7 @@ ALTER TABLE `formapago`
 -- AUTO_INCREMENT de la tabla `historicoreserva`
 --
 ALTER TABLE `historicoreserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `organizador`
@@ -383,19 +404,19 @@ ALTER TABLE `organizador`
 -- AUTO_INCREMENT de la tabla `orgtokenr`
 --
 ALTER TABLE `orgtokenr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `usertokenr`
 --
 ALTER TABLE `usertokenr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
