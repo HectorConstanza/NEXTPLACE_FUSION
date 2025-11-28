@@ -96,7 +96,7 @@ export default function Navbar() {
         <div className="navbar-links">
           <a onClick={goToEvents}>Eventos</a>
           <a onClick={goToOrganizers}>Organizadores</a>
-          {user && <a>Reservas</a>}
+          {user && <a onClick={() => navigate("/mis-reservas")}>Reservas</a>}
         </div>
 
         {/* ACTIONS */}
@@ -112,7 +112,7 @@ export default function Navbar() {
           {/* USER AUTH */}
           {user ? (
             <>
-              <span className="navbar-user">{user.nombre}</span>
+              <span className="navbar-user" onClick={() => navigate("/perfil")}>{user.nombre}</span>
 
               <button className="sign-out-button" onClick={handleLogout}>
                 Log Out

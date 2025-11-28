@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.perfil-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #0f0f0f;
+  min-height: 100vh;
+}
+
+.perfil-card {
+  background: #1a1a1a;
+  padding: 30px;
+  width: 420px;
+  border-radius: 18px;
+  border: 2px solid #ffb3db;
+  text-align: center;
+}
+
+.perfil-title {
+  color: #ffb3db;
+  font-size: 26px;
+  margin-bottom: 25px;
+}
+
+/* FOTO */
+.perfil-foto-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.perfil-foto {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ffb3db;
+}
+
+.perfil-btn-foto {
+  margin-top: 12px;
+  background: #ffb3db;
+  color: #0f0f0f;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.perfil-btn-foto:hover {
+  opacity: 0.8;
+}
+
+/* FORMULARIO */
+.perfil-form {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.perfil-form label {
+  color: #ffb3db;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+
+.perfil-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  background: #0f0f0f;
+  border: 2px solid #ffb3db;
+  border-radius: 8px;
+  color: white;
+}
+
+.perfil-form input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* BOTÓN GUARDAR */
+.perfil-save-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #ffb3db;
+  border-radius: 10px;
+  color: #0f0f0f;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.perfil-save-btn:hover {
+  opacity: 0.8;
+}

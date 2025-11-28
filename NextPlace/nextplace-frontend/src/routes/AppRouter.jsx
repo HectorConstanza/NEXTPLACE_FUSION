@@ -11,6 +11,8 @@ import ResetPassword from "../pages/user/Login/ResetPassword.jsx";
 import TicketsPages from "../pages/user/GetTickets/TicketsPages.jsx";
 import DetallePage from "../pages/user/GetTickets/DetallePage.jsx";
 import PagoPage from "../pages/user/GetTickets/PagoPage.jsx";
+import PerfilPage from "../pages/user/Userpage/perfil.jsx";
+import MisReservas from "../pages/user/Userpage/reservasusers.jsx";
 
 /* --- Dashboard Layout --- */
 import DashboardLayout from "../pages/organizer/Dashboard/DashboardLayout";
@@ -35,6 +37,8 @@ export default function AppRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/perfil" element={<PerfilPage />} />
+        <Route path="/mis-reservas" element={<MisReservas />} />
 
         {/* --- FLUJO DE COMPRA DE TICKETS --- */}
         <Route path="/tickets/:eventId" element={<TicketsPages />} />

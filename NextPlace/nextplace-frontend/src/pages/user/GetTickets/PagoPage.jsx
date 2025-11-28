@@ -1,26 +1,68 @@
 // src/pages/user/PagoPage/PagoPage.jsx
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Captura2 from "../../../assets/images/Captura2.JPG";
-
 import "./css/Pago.css";
 
 function PagoPage() {
   const navigate = useNavigate();
 
-  const handlePayment = () => {
-    // Aquí podrías validar datos de tarjeta antes de confirmar
-    Swal.fire({
-      title: "Pago exitoso",
-      text: "Tu compra ha sido procesada correctamente",
-      icon: "success",
-      confirmButtonText: "Aceptar",
-    }).then(() => {
-      // Redirigir al Home
-      navigate("/");
-    });
-  };
+  // 🔥 Leer monto total desde localStorage
+  const monto = localStorage.getItem("monto_total") || "0.00";
+
+  useEffect(() => {
+    // Cargar el script de PayPal
+    const script = document.createElement("script");
+    script.src =
+      "https://www.paypal.com/sdk/js?client-id=AZL38F0eYi7EQ6UfqYUX_r9hwXENxG0crvy8KSB4nYbUuQP3id_iFBaeG3fjHfAoofzhgDbTwZRnhtV9&currency=USD";
+    script.async = true;
+
+    script.onload = () => {
+      if (window.paypal) {
+        window.paypal
+          .Buttons({
+            createOrder: (data, actions) => {
+              // 🔥 Usar el total real del usuario
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: monto,
+                    },
+                    description: "Pago de reserva de evento",
+                  },
+                ],
+              });
+            },
+
+            onApprove: (data, actions) => {
+              return actions.order.capture().then(function (details) {
+                Swal.fire({
+                  title: "Pago exitoso",
+                  text: "Tu compra ha sido procesada correctamente",
+                  icon: "success",
+                  confirmButtonText: "Aceptar",
+                }).then(() => {
+                  navigate("/");
+                });
+              });
+            },
+
+            onError: (err) => {
+              Swal.fire({
+                title: "Error en el pago",
+                text: "Hubo un problema al procesar el pago.",
+                icon: "error",
+              });
+            },
+          })
+          .render("#paypal-button-container");
+      }
+    };
+
+    document.body.appendChild(script);
+  }, [navigate, monto]);
 
   return (
     <div className="get-tickets">
@@ -28,6 +70,11 @@ function PagoPage() {
         <h2>Método de Pago</h2>
         <p className="form-subtitle">
           Selecciona un método para completar tu compra.
+        </p>
+
+        {/* Mostrar el total real */}
+        <p className="total-pago">
+          Total a pagar: <strong>${monto}</strong>
         </p>
 
         <div className="payment-options">
@@ -56,26 +103,8 @@ function PagoPage() {
           </div>
         </div>
 
-        <div className="card-form">
-          <label>Número de tarjeta</label>
-          <input type="text" placeholder="XXXX XXXX XXXX XXXX" />
-
-          <div className="card-row">
-            <div>
-              <label>Fecha de expiración</label>
-              <input type="text" placeholder="MM/AA" />
-            </div>
-            <div>
-              <label>CVV</label>
-              <input type="text" placeholder="123" />
-            </div>
-          </div>
-        </div>
-
-        {/* Botón con SweetAlert */}
-        <button className="pagar-btn" onClick={handlePayment}>
-          Confirmar pago
-        </button>
+        {/* Botón de PayPal */}
+        <div id="paypal-button-container" style={{ marginTop: "20px" }}></div>
 
         <div className="flex justify-center mt-4">
           <img src={Captura2} alt="Captura2" className="logo-footer" />
