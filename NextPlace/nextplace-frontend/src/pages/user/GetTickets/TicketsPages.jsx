@@ -37,20 +37,41 @@ function TicketsPage() {
         return;
       }
 
-      // ⭐ AQUI SE CORRIGIÓ (ANTES: "/api/reservas")
+      // ✅ Validar cantidad de tickets
+      if (general + vip <= 0) {
+        alert("Debes seleccionar al menos un ticket");
+        return;
+      }
+
+      // ✅ Validar contra cupos disponibles
+      if (general > (event.cuposDispo || event.cupos)) {
+        alert("No hay suficientes tickets disponibles");
+        return;
+      }
+
+      // Crear reserva en backend
       const res = await API.post(
         "/reservas",
         {
           usuario_id: user.id,
           evento_id: eventId,
+          cantidad_general: general,
+          cantidad_vip: vip,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      navigate(`/detalles/${eventId}`, {
-        state: { general, vip, event, reserva: res.data.reserva },
+      // ✅ Navegar a detalle/pago con datos
+      navigate(`/pago/${eventId}`, {
+        state: {
+          general,
+          vip,
+          event,
+          reserva: res.data.reserva,
+          total: event.costo * general + (event.costoVip || 0) * vip,
+        },
       });
     } catch (err) {
       console.error("Error al crear reserva", err);
@@ -62,7 +83,6 @@ function TicketsPage() {
     return <p>Cargando evento...</p>;
   }
 
-  // ⭐ MISMA LÓGICA DE HOME Y EVENTCARD
   const fullImageUrl = event.imagen
     ? `http://localhost:4000/${event.imagen}`
     : "/src/assets/images/ejemplo.jpg";
@@ -118,15 +138,12 @@ function TicketsPage() {
               <div>
                 <h4>Admisión General</h4>
                 <p>Entrada estándar</p>
-
-                {/* Cupos reales */}
                 <span className="available">
                   {event.cuposDispo || event.cupos} disponibles
                 </span>
               </div>
 
               <div className="ticket-actions">
-                {/* ⭐ COSTO REAL DESDE BACKEND */}
                 <span className="price">${event.costo}</span>
 
                 <div className="quantity-control">
@@ -134,12 +151,42 @@ function TicketsPage() {
                     -
                   </button>
                   <span>{general}</span>
-                  <button onClick={() => setGeneral(general + 1)}>+</button>
+                  <button
+                    onClick={() =>
+                      setGeneral(
+                        Math.min(general + 1, event.cuposDispo || event.cupos)
+                      )
+                    }
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>
 
-            {/* Detalles */}
+            {/* Ticket VIP */}
+            {/* <div className="ticket-card">
+              <div>
+                <h4>VIP</h4>
+                <p>Entrada preferencial</p>
+                <span className="available">
+                  {event.cuposVip || 0} disponibles
+                </span>
+              </div>
+
+              <div className="ticket-actions">
+                <span className="price">${event.costoVip || 0}</span>
+
+                <div className="quantity-control">
+                  <button onClick={() => setVip(Math.max(0, vip - 1))}>
+                    -
+                  </button>
+                  <span>{vip}</span>
+                  <button onClick={() => setVip(vip + 1)}>+</button>
+                </div>
+              </div>
+            </div> */}
+
             {showDetails && (
               <div className="event-extra-details">
                 <h3>Detalles del evento</h3>
@@ -155,9 +202,9 @@ function TicketsPage() {
 
             <div className="total-section">
               <span>Total</span>
-
-              {/* ⭐ TOTAL REAL */}
-              <span>${event.costo * general}</span>
+              <span>
+                ${event.costo * general + (event.costoVip || 0) * vip}
+              </span>
             </div>
 
             <button className="continue-btn" onClick={handleContinue}>

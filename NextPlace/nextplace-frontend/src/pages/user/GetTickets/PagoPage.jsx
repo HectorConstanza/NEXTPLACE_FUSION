@@ -1,10 +1,27 @@
+// src/pages/user/PagoPage/PagoPage.jsx
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Captura2 from "../../../assets/images/Captura2.JPG";
 
 import "./css/Pago.css";
 
-
 function PagoPage() {
+  const navigate = useNavigate();
+
+  const handlePayment = () => {
+    // Aquí podrías validar datos de tarjeta antes de confirmar
+    Swal.fire({
+      title: "Pago exitoso",
+      text: "Tu compra ha sido procesada correctamente",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      // Redirigir al Home
+      navigate("/");
+    });
+  };
+
   return (
     <div className="get-tickets">
       <div className="form-container pago-container">
@@ -55,7 +72,10 @@ function PagoPage() {
           </div>
         </div>
 
-        <button className="pagar-btn">Confirmar pago</button>
+        {/* Botón con SweetAlert */}
+        <button className="pagar-btn" onClick={handlePayment}>
+          Confirmar pago
+        </button>
 
         <div className="flex justify-center mt-4">
           <img src={Captura2} alt="Captura2" className="logo-footer" />
