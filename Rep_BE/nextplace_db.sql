@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2025 a las 02:58:45
+-- Tiempo de generación: 28-11-2025 a las 03:57:44
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,17 +41,20 @@ CREATE TABLE `evento` (
   `cuposDispo` int(11) DEFAULT NULL,
   `createdAt` datetime DEFAULT current_timestamp(),
   `updatedAt` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `deletedAt` datetime DEFAULT NULL
+  `deletedAt` datetime DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
+  `costo` decimal(10,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `evento`
 --
 
-INSERT INTO `evento` (`id`, `titulo`, `descripcion`, `categoria`, `lugar`, `fecha`, `cupos`, `organizador_id`, `cuposDispo`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
-(1, 'Concierto de Rock', 'Bandas locales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 200, '2025-11-20 01:01:49', '2025-11-20 01:22:11', NULL),
-(2, 'Concierto de Manuel Turizo', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 200, '2025-11-20 01:31:21', '2025-11-20 01:47:00', NULL),
-(3, 'Concierto Bad bunny', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 200, '2025-11-20 01:44:08', '2025-11-20 01:44:08', NULL);
+INSERT INTO `evento` (`id`, `titulo`, `descripcion`, `categoria`, `lugar`, `fecha`, `cupos`, `organizador_id`, `cuposDispo`, `createdAt`, `updatedAt`, `deletedAt`, `imagen`, `costo`) VALUES
+(1, 'Concierto de Rock', 'Bandas locales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 200, '2025-11-20 01:01:49', '2025-11-20 01:22:11', NULL, NULL, 0.00),
+(2, 'Concierto de Manuel Turizo', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 199, '2025-11-20 01:31:21', '2025-11-28 01:51:39', NULL, NULL, 0.00),
+(3, 'Concierto Bad bunny', 'Bandas internacionales en vivo', 'Música', 'Auditorio Nacional', '2025-11-16 02:00:00', 200, 1, 199, '2025-11-20 01:44:08', '2025-11-28 01:52:00', NULL, NULL, 0.00),
+(4, 'Franco Escamilla', 'Evento de franco escamilla', 'Arte y Cultura', 'Santa Tecla', '2025-12-01 07:00:00', 140, 2, 131, '2025-11-28 01:57:32', '2025-11-28 02:55:52', NULL, 'uploads/eventos/1764295052222-912413879.jpg', 0.00);
 
 -- --------------------------------------------------------
 
@@ -114,7 +117,11 @@ CREATE TABLE `historicoreserva` (
 
 INSERT INTO `historicoreserva` (`id`, `reserva_id`, `fechaCambio`, `estadoAnterior`, `estadoNuevo`) VALUES
 (1, 1, '2025-11-20 01:22:11', 'confirmada', 'cancelada'),
-(2, 2, '2025-11-20 01:47:00', 'confirmada', 'cancelada');
+(2, 2, '2025-11-20 01:47:00', 'confirmada', 'cancelada'),
+(3, 9, '2025-11-28 02:45:40', NULL, 'confirmada'),
+(4, 10, '2025-11-28 02:46:01', NULL, 'confirmada'),
+(5, 11, '2025-11-28 02:55:05', NULL, 'confirmada'),
+(6, 12, '2025-11-28 02:55:52', NULL, 'confirmada');
 
 -- --------------------------------------------------------
 
@@ -151,6 +158,14 @@ CREATE TABLE `orgtokenr` (
   `fechaV` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `orgtokenr`
+--
+
+INSERT INTO `orgtokenr` (`id`, `organizador_id`, `token`, `fechaC`, `fechaV`) VALUES
+(3, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDI5NDI1MSwiZXhwIjoxNzY0Mjk3ODUxfQ.YPC-Y3qhOquTy-uvBieYDkTwHwYrjpZ', '2025-11-28 01:44:11', '2025-11-28 02:44:11'),
+(4, 2, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tYnJlIjoiUmFtaXJvIFDDqXJleiIsImNvcnJlb0VsZWN0cm9uaWNvIjoiUmFtaXJvLm9yZ2FuaXphZG9yQGV4YW1wbGUuY29tIiwicm9sZSI6Im9yZ2FuaXplciIsImlhdCI6MTc2NDI5NTAyMSwiZXhwIjoxNzY0Mjk4NjIxfQ.RhTX4ANUZuNcoqVGNPJQTdUGqtOQgZU', '2025-11-28 01:57:01', '2025-11-28 02:57:01');
+
 -- --------------------------------------------------------
 
 --
@@ -162,16 +177,27 @@ CREATE TABLE `reserva` (
   `usuario_id` int(11) NOT NULL,
   `evento_id` int(11) NOT NULL,
   `fechaReserva` datetime DEFAULT current_timestamp(),
-  `estado` varchar(50) DEFAULT NULL
+  `estado` varchar(50) DEFAULT NULL,
+  `cantidad` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reserva`
 --
 
-INSERT INTO `reserva` (`id`, `usuario_id`, `evento_id`, `fechaReserva`, `estado`) VALUES
-(1, 1, 1, '2025-11-20 01:10:56', 'cancelada'),
-(2, 2, 2, '2025-11-20 01:46:52', 'cancelada');
+INSERT INTO `reserva` (`id`, `usuario_id`, `evento_id`, `fechaReserva`, `estado`, `cantidad`) VALUES
+(1, 1, 1, '2025-11-20 01:10:56', 'cancelada', 1),
+(2, 2, 2, '2025-11-20 01:46:52', 'cancelada', 1),
+(3, 10, 2, '2025-11-28 01:51:39', 'confirmada', 1),
+(4, 10, 3, '2025-11-28 01:52:00', 'confirmada', 1),
+(5, 10, 4, '2025-11-28 02:00:31', 'confirmada', 1),
+(6, 10, 4, '2025-11-28 02:01:52', 'confirmada', 1),
+(7, 10, 4, '2025-11-28 02:13:03', 'confirmada', 1),
+(8, 10, 4, '2025-11-28 02:22:23', 'confirmada', 1),
+(9, 10, 4, '2025-11-28 02:45:40', 'confirmada', 1),
+(10, 10, 4, '2025-11-28 02:46:01', 'confirmada', 1),
+(11, 10, 4, '2025-11-28 02:55:05', 'confirmada', 2),
+(12, 10, 4, '2025-11-28 02:55:52', 'confirmada', 1);
 
 -- --------------------------------------------------------
 
@@ -192,7 +218,10 @@ CREATE TABLE `usertokenr` (
 --
 
 INSERT INTO `usertokenr` (`id`, `usuario_id`, `token`, `fechaC`, `fechaV`) VALUES
-(3, 9, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImF0dGVuZGVlIiwiaWF0IjoxNzYzNjAzMDI2LCJleHAiOjE3NjM2MTM4MjZ9.1XpN7N7MUnwaYzAUuq7izR02r5SZ0jH15IoMO-Cn9SU', '2025-11-20 01:43:46', '2025-11-20 04:43:46');
+(3, 9, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwicm9sZSI6ImF0dGVuZGVlIiwiaWF0IjoxNzYzNjAzMDI2LCJleHAiOjE3NjM2MTM4MjZ9.1XpN7N7MUnwaYzAUuq7izR02r5SZ0jH15IoMO-Cn9SU', '2025-11-20 01:43:46', '2025-11-20 04:43:46'),
+(4, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NDY3MiwiZXhwIjoxNzY0MzA1NDcyfQ.OanVtRJY6WIjfJ18QnoTg_dm0xfdKiF9wfHRoYK3j8U', '2025-11-28 01:51:12', '2025-11-28 04:51:12'),
+(5, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NTA3MywiZXhwIjoxNzY0MzA1ODczfQ.QENLB4ihiCabx9nHoaZUTo8mLfZPtfEXSepQZMA2q2c', '2025-11-28 01:57:53', '2025-11-28 04:57:53'),
+(6, 10, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTAsInJvbGUiOiJhdHRlbmRlZSIsImlhdCI6MTc2NDI5NjMzMiwiZXhwIjoxNzY0MzA3MTMyfQ.5v_05K4Hy3IF-XbuOMyIRPDdDHjJkYOV2Ebx6F_-90o', '2025-11-28 02:18:52', '2025-11-28 05:18:52');
 
 -- --------------------------------------------------------
 
@@ -221,7 +250,8 @@ INSERT INTO `usuario` (`id`, `nombre`, `contrasena`, `correoElectronico`, `role`
 (6, 'Juan', '$2b$10$IMZ3WOZQN2VTBoldd8I76ef02Ii3ujPG8ZVPwlRnFlKlhn/tU3Bp2', 'juan@mail.com', 'attendee'),
 (7, 'Juan', '$2b$10$S6BR9W9EwnN1Qp9RLaQ4Bu3svDEJ189JwHApOXg5ydV5EC1U19PR.', 'aaa@mail.com', 'attendee'),
 (8, 'Xavier', '$2b$10$vQPG1.TZH.ZVNCjOKZyC5uT0k.0c5IxznCVSViQVpecIYshPYU/k.', 'Xavier@mail.com', 'attendee'),
-(9, 'Xavier', '$2b$10$cben4pLAYjuDOQ1s6MQS7uRWeXdLiefdCL1fFbCovt8TICmqMTOga', 'Prueba@mail.com', 'attendee');
+(9, 'Xavier', '$2b$10$cben4pLAYjuDOQ1s6MQS7uRWeXdLiefdCL1fFbCovt8TICmqMTOga', 'Prueba@mail.com', 'attendee'),
+(10, 'Xavier Garcia', '$2b$10$haK5876cGXDQ8Wu6scHMbeQia/7f.6LQJwEkCxBJZrvT7F00nmKui', 'Xavier1@gmail.com', 'attendee');
 
 -- --------------------------------------------------------
 
@@ -283,7 +313,9 @@ ALTER TABLE `organizador`
 --
 ALTER TABLE `orgtokenr`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_orgUserTokenR` (`organizador_id`);
+  ADD KEY `FK_orgUserTokenR` (`organizador_id`),
+  ADD KEY `orgtokenr_organizador_id` (`organizador_id`),
+  ADD KEY `orgtokenr_token` (`token`);
 
 --
 -- Indices de la tabla `reserva`
@@ -321,7 +353,7 @@ ALTER TABLE `usuarioeventofavorito`
 -- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `extras`
@@ -339,7 +371,7 @@ ALTER TABLE `formapago`
 -- AUTO_INCREMENT de la tabla `historicoreserva`
 --
 ALTER TABLE `historicoreserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `organizador`
@@ -351,25 +383,25 @@ ALTER TABLE `organizador`
 -- AUTO_INCREMENT de la tabla `orgtokenr`
 --
 ALTER TABLE `orgtokenr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usertokenr`
 --
 ALTER TABLE `usertokenr`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
@@ -430,19 +462,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-UPDATE evento
-SET categoria = 'Música'
-WHERE LOWER(categoria) IN ('musica', 'música');
-
-
-UPDATE evento
-SET categoria = 'Arte y Cultura'
-WHERE LOWER(categoria) IN ('arte', 'arte y cultura');
-
-UPDATE evento
-SET categoria = 'Tecnología'
-WHERE LOWER(categoria) IN ('tecnologia', 'tecnología');
-
-ALTER TABLE evento
-ADD COLUMN costo DECIMAL(10,2) NOT NULL DEFAULT 0;
