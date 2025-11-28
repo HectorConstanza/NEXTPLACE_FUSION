@@ -33,8 +33,9 @@ export default function MisReservas() {
     <>
       <Navbar />
 
-      <div className="reservas-container">
-        <h2 className="reservas-title">Mis Reservas</h2>
+    <div className="reservas-container">
+       <h1 className="reservas-header">Mis Reservas</h1>
+
 
         {reservas.length === 0 ? (
           <p className="reservas-empty">No tienes reservas realizadas.</p>

@@ -1,107 +1,90 @@
 import React, { useState, useEffect } from "react";
-import "./css/Perfil.css";
+import API from "../../../utils/api";
+import Swal from "sweetalert2";
+import "./css/perfil.css";
 
 export default function Perfil() {
   const [user, setUser] = useState({
     nombre: "",
-    apellido: "",
-    email: "",
-    telefono: "",
-    imagen: "",
+    correoElectronico: "",
   });
 
-  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Cargar datos del usuario
     const fetchUser = async () => {
       try {
-        const res = await API.get("/auth/me"); // Ruta para obtener info del usuario logeado
-        setUser(res.data);
-        setPreview(res.data.imagen ? `http://localhost:4000/${res.data.imagen}` : null);
+        const res = await API.get("/users/me");
+        setUser({
+          nombre: res.data.nombre,
+          correoElectronico: res.data.correoElectronico,
+        });
       } catch (error) {
         console.error("Error cargando usuario", error);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchUser();
   }, []);
 
-  // Manejar subida de imagen
-  const handleImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreview(URL.createObjectURL(file));
-      setUser({ ...user, imagen: file });
+  // ============================================================
+  // VALIDACIÓN: solo letras y espacios
+  // ============================================================
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+
+    // Solo letras y espacios (incluye acentos)
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúñÑ ]*$/;
+
+    if (regex.test(value)) {
+      setUser({ ...user, nombre: value });
     }
   };
 
+  // ============================================================
   // Guardar cambios
+  // ============================================================
   const handleSave = async () => {
     try {
-      const formData = new FormData();
-      formData.append("nombre", user.nombre);
-      formData.append("apellido", user.apellido);
-      formData.append("telefono", user.telefono);
-
-      if (user.imagen instanceof File) {
-        formData.append("imagen", user.imagen);
-      }
-
-      await API.put("/auth/update", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      await API.put("/users/update", {
+        nombre: user.nombre,
       });
 
-      alert("Perfil actualizado correctamente!");
+      Swal.fire({
+        title: "¡Perfil actualizado!",
+        text: "Tu nombre fue actualizado correctamente.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        window.location.href = "/"; 
+      });
+
     } catch (error) {
       console.error("Error guardando perfil", error);
-      alert("Error al actualizar.");
+      Swal.fire("Error", "No se pudo actualizar el perfil.", "error");
     }
   };
+
+  if (loading) return <p>Cargando...</p>;
 
   return (
     <div className="perfil-container">
       <div className="perfil-card">
         <h2 className="perfil-title">Mi Perfil</h2>
 
-        {/* FOTO */}
-        <div className="perfil-foto-section">
-          <img
-            src={preview || "/src/assets/icons/user.png"}
-            alt="Foto"
-            className="perfil-foto"
-          />
-
-          <label className="perfil-btn-foto">
-            Cambiar foto
-            <input type="file" accept="image/*" onChange={handleImage} hidden />
-          </label>
-        </div>
-
-        {/* CAMPOS DE INFORMACIÓN */}
         <div className="perfil-form">
           <label>Nombre</label>
           <input
             type="text"
             value={user.nombre}
-            onChange={(e) => setUser({ ...user, nombre: e.target.value })}
-          />
-
-          <label>Apellido</label>
-          <input
-            type="text"
-            value={user.apellido}
-            onChange={(e) => setUser({ ...user, apellido: e.target.value })}
-          />
-
-          <label>Teléfono</label>
-          <input
-            type="text"
-            value={user.telefono}
-            onChange={(e) => setUser({ ...user, telefono: e.target.value })}
+            onChange={handleNameChange} // VALIDACIÓN
+            maxLength={30}
           />
 
           <label>Email (no editable)</label>
-          <input type="text" value={user.email} disabled />
+          <input type="text" value={user.correoElectronico} disabled />
         </div>
 
         <button className="perfil-save-btn" onClick={handleSave}>
