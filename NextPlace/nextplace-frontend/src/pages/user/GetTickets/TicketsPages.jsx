@@ -9,9 +9,7 @@ function TicketsPage() {
   const { eventId } = useParams();
 
   const [event, setEvent] = useState(null);
-  const [general, setGeneral] = useState(0);
-  const [vip, setVip] = useState(0);
-  const [showDetails, setShowDetails] = useState(false);
+  const [cantidad, setCantidad] = useState(0);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -22,7 +20,6 @@ function TicketsPage() {
         console.error("Error al cargar evento", err);
       }
     };
-
     fetchEvent();
   }, [eventId]);
 
@@ -37,51 +34,42 @@ function TicketsPage() {
         return;
       }
 
-      // ✅ Validar cantidad de tickets
-      if (general + vip <= 0) {
+      if (cantidad <= 0) {
         alert("Debes seleccionar al menos un ticket");
         return;
       }
 
-      // ✅ Validar contra cupos disponibles
-      if (general > (event.cuposDispo || event.cupos)) {
+      if (cantidad > event.cuposDispo) {
         alert("No hay suficientes tickets disponibles");
         return;
       }
 
-      // Crear reserva en backend
       const res = await API.post(
         "/reservas",
         {
           usuario_id: user.id,
           evento_id: eventId,
-          cantidad_general: general,
-          cantidad_vip: vip,
+          cantidad
         },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // ✅ Navegar a detalle/pago con datos
       navigate(`/pago/${eventId}`, {
         state: {
-          general,
-          vip,
+          cantidad,
           event,
           reserva: res.data.reserva,
-          total: event.costo * general + (event.costoVip || 0) * vip,
-        },
+          total: event.costo * cantidad
+        }
       });
+
     } catch (err) {
       console.error("Error al crear reserva", err);
       alert(err.response?.data?.message || "Error al crear reserva");
     }
   };
 
-  if (!event) {
-    return <p>Cargando evento...</p>;
-  }
+  if (!event) return <p>Cargando evento...</p>;
 
   const fullImageUrl = event.imagen
     ? `http://localhost:4000/${event.imagen}`
@@ -93,25 +81,14 @@ function TicketsPage() {
 
         {/* HEADER */}
         <header className="event-header">
-          <img
-            src={fullImageUrl}
-            alt={event.titulo}
-            className="event-image"
-          />
-
+          <img src={fullImageUrl} alt={event.titulo} className="event-image" />
           <div className="event-info">
             <h2>{event.titulo}</h2>
             <p>{event.descripcion}</p>
 
             <div className="event-details">
               <p>📅 {new Date(event.fecha).toLocaleDateString()}</p>
-              <p>
-                🕘{" "}
-                {new Date(event.fecha).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
+              <p>🕘 {new Date(event.fecha).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</p>
               <p>📍 {event.lugar}</p>
             </div>
           </div>
@@ -121,41 +98,24 @@ function TicketsPage() {
         <section className="tickets-section">
           <div className="tickets-left">
 
-            <div className="steps">
-              <span className="active-step">Tickets</span>
-              <span
-                className={showDetails ? "active-step" : ""}
-                onClick={() => setShowDetails(!showDetails)}
-              >
-                Detalles
-              </span>
-            </div>
-
             <h3>Seleccione sus tickets</h3>
 
-            {/* Ticket General */}
             <div className="ticket-card">
               <div>
-                <h4>Admisión General</h4>
+                <h4>Entrada General</h4>
                 <p>Entrada estándar</p>
-                <span className="available">
-                  {event.cuposDispo || event.cupos} disponibles
-                </span>
+                <span className="available">{event.cuposDispo} disponibles</span>
               </div>
 
               <div className="ticket-actions">
                 <span className="price">${event.costo}</span>
 
                 <div className="quantity-control">
-                  <button onClick={() => setGeneral(Math.max(0, general - 1))}>
-                    -
-                  </button>
-                  <span>{general}</span>
+                  <button onClick={() => setCantidad(Math.max(0, cantidad - 1))}>-</button>
+                  <span>{cantidad}</span>
                   <button
                     onClick={() =>
-                      setGeneral(
-                        Math.min(general + 1, event.cuposDispo || event.cupos)
-                      )
+                      setCantidad(Math.min(cantidad + 1, event.cuposDispo))
                     }
                   >
                     +
@@ -164,36 +124,6 @@ function TicketsPage() {
               </div>
             </div>
 
-            {/* Ticket VIP */}
-            {/* <div className="ticket-card">
-              <div>
-                <h4>VIP</h4>
-                <p>Entrada preferencial</p>
-                <span className="available">
-                  {event.cuposVip || 0} disponibles
-                </span>
-              </div>
-
-              <div className="ticket-actions">
-                <span className="price">${event.costoVip || 0}</span>
-
-                <div className="quantity-control">
-                  <button onClick={() => setVip(Math.max(0, vip - 1))}>
-                    -
-                  </button>
-                  <span>{vip}</span>
-                  <button onClick={() => setVip(vip + 1)}>+</button>
-                </div>
-              </div>
-            </div> */}
-
-            {showDetails && (
-              <div className="event-extra-details">
-                <h3>Detalles del evento</h3>
-                <p>{event.categoria}</p>
-                <p>{event.cupos} cupos totales</p>
-              </div>
-            )}
           </div>
 
           {/* RESUMEN */}
@@ -202,9 +132,7 @@ function TicketsPage() {
 
             <div className="total-section">
               <span>Total</span>
-              <span>
-                ${event.costo * general + (event.costoVip || 0) * vip}
-              </span>
+              <span>${event.costo * cantidad}</span>
             </div>
 
             <button className="continue-btn" onClick={handleContinue}>

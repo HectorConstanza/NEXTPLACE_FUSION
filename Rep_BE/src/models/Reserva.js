@@ -6,7 +6,9 @@ export const Reserva = sequelize.define("Reserva", {
   usuario_id: { type: DataTypes.INTEGER, allowNull: false },
   evento_id: { type: DataTypes.INTEGER, allowNull: false },
   fechaReserva: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-  estado: { type: DataTypes.STRING, defaultValue: "confirmada" }
+  estado: { type: DataTypes.STRING, defaultValue: "confirmada" },
+  cantidad: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
+
 }, {
   tableName: "reserva",
   timestamps: false
