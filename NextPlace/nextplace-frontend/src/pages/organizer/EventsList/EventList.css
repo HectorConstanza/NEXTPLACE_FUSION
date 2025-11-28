@@ -1,6 +1,7 @@
 /* src/pages/organizer/EventsList/EventList.css */
 
 .event-list-wrapper {
+  
   padding: 20px;
   display: flex;
   flex-direction: column;

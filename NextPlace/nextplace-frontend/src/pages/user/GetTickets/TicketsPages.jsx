@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import API from "../../../utils/api.js";
 import Swal from "sweetalert2";
 import "./css/GetTickets.css";
+import BackButton from "../../../components/BackButton";
 
 function TicketsPage() {
   const navigate = useNavigate();
   const { eventId } = useParams();
-
   const [event, setEvent] = useState(null);
   const [cantidad, setCantidad] = useState(0);
 
@@ -120,12 +120,8 @@ function TicketsPage() {
         <header className="event-header">
           
           <img src={fullImageUrl} alt={event.titulo} className="event-image" />
-           <button
-            className="home-btn"
-            onClick={() => navigate("/")}
-          >
-             Volver al Home
-          </button>
+           <BackButton label="Volver" />
+
           <div className="event-info">
             <h2>{event.titulo}</h2>
             <p>{event.descripcion}</p>
@@ -133,11 +129,8 @@ function TicketsPage() {
             <div className="event-details">
               <p>📅 {new Date(event.fecha).toLocaleDateString()}</p>
               <p>
-                🕘{" "}
-                {new Date(event.fecha).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+              🕘 {event.fecha?.split("T")[1]?.slice(0, 5) || "00:00"}
+
               </p>
               <p>📍 {event.lugar}</p>
             </div>

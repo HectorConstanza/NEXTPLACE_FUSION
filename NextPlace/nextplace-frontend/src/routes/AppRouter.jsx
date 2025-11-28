@@ -21,14 +21,13 @@ import DashboardLayout from "../pages/organizer/Dashboard/DashboardLayout";
 import EventList from "../pages/organizer/EventsList/EventList";
 import CreateEvent from "../pages/organizer/CreateEvent/CreateEvent.jsx";
 import UpdateEvent from "../pages/organizer/CreateEvent/UpdateEvent.jsx"; // NUEVO
-
+import AsistentesPage from "../pages/organizer/AsistentesPage/AsistentesPage.jsx";
 import ProtectedRoute from "../routes/ProtectedRoute";
 
 export default function AppRouter() {
   return (
     <Router>
       <Routes>
-
         {/* --- HOME PÚBLICA --- */}
         <Route path="/" element={<Home />} />
         <Route path="/event/:id" element={<EventDetail />} />
@@ -80,6 +79,12 @@ export default function AppRouter() {
             </ProtectedRoute>
           }
         />
+        {/* --- Ver asistentes (ORGANIZER) --- */}
+        <Route
+          path="/organizer/asistentes/:eventId"
+          element={<AsistentesPage />}
+        />
+
 
       </Routes>
     </Router>

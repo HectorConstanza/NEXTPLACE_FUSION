@@ -41,3 +41,7 @@ UserTokenR.belongsTo(User, { foreignKey: "usuario_id" });
 // -----------------------------
 Organizer.hasMany(OrgTokenR, { foreignKey: "organizador_id", as: "tokens" });
 OrgTokenR.belongsTo(Organizer, { foreignKey: "organizador_id" });
+
+
+User.hasMany(Reserva, { foreignKey: "usuario_id", as: "usuario" });
+Reserva.belongsTo(User, { foreignKey: "usuario_id", as: "usuario" });

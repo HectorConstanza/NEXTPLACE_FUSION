@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import API from "../../../utils/api";
 import Swal from "sweetalert2";
 import "./css/perfil.css";
+import BackButton from "../../../components/BackButton";
 
 export default function Perfil() {
   const [user, setUser] = useState({
@@ -90,7 +91,9 @@ export default function Perfil() {
         <button className="perfil-save-btn" onClick={handleSave}>
           Guardar cambios
         </button>
+          <BackButton label="Volver" />
       </div>
+      
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "../controllers/eventController.js";
 
 import { uploadEventoImg } from "../config/multer.js";
+import { getEventAttendees } from "../controllers/eventController.js";
 
 const router = express.Router();
 
@@ -33,5 +34,8 @@ router.get("/:id", getEventById);
 
 // Actualizar evento
 router.put("/:id", updateEvent);
+
+// Ruta para obtener los asistentes del evento
+router.get("/:id/asistentes", getEventAttendees);
 
 export default router;

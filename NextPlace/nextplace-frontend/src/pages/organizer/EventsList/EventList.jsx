@@ -66,6 +66,12 @@ export default function EventList() {
     fetchEvents();
   }, []);
 
+  const handleViewAttendees = (eventId) => {
+  navigate(`/organizer/asistentes/${eventId}`);
+};
+
+
+
   const handleDelete = (id) => {
     hideEvent(id);
     setEvents((prev) => prev.filter((ev) => ev.id !== id));
@@ -108,6 +114,7 @@ export default function EventList() {
             cuposDispo={ev.cuposDispo}
             estado={ev.estado}
             onDelete={handleDelete}
+            onViewAttendees={handleViewAttendees} 
           />
         ))}
       </div>

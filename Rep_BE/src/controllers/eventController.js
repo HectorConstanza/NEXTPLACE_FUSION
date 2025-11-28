@@ -1,5 +1,7 @@
 import { Event } from "../models/Event.js";
 import { Op } from "sequelize";
+import { Reserva } from "../models/Reserva.js";
+import { User } from "../models/User.js";
 
 // =====================================
 // CREAR EVENTO
@@ -135,7 +137,7 @@ export const getEventById = async (req, res) => {
         "cupos",
         "cuposDispo",
         "costo",
-        "imagen",        
+        "imagen",
         "organizador_id"
       ]
     });
@@ -144,13 +146,12 @@ export const getEventById = async (req, res) => {
       return res.status(404).json({ message: "Evento no encontrado" });
     }
 
-    res.json(event.toJSON());    
+    res.json(event.toJSON());
 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 // =====================================
 // EVENTOS POR ORGANIZADOR
 // =====================================
@@ -170,7 +171,7 @@ export const getEventsByOrganizer = async (req, res) => {
         "cupos",
         "cuposDispo",
         "costo",
-        "imagen" 
+        "imagen"
       ]
     });
 
@@ -211,3 +212,40 @@ export const getCategories = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// ======================================================
+// Obtener asistentes de un evento
+// ======================================================
+export const getEventAttendees = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const reservas = await Reserva.findAll({
+      where: { evento_id: id },
+      include: [
+        {
+          model: User,
+          as: "usuario",
+          attributes: ["id", "nombre", "correoElectronico"]
+        }
+      ]
+    });
+    const data = reservas.map((r) => ({
+      id: r.id,
+      nombre: r.usuario?.nombre || "Usuario no disponible",
+      correoElectronico: r.usuario?.correoElectronico || "---",
+      cantidad: r.cantidad,
+       estado: r.estado
+    }));
+
+    res.json(data);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error obteniendo asistentes" });
+  }
+};
+
+
+
+

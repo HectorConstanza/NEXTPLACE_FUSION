@@ -14,6 +14,7 @@ export default function EventCard({
   cuposDispo,
   estado,
   onDelete,
+  onViewAttendees = null,
 }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ export default function EventCard({
     });
   };
 
+  
   return (
     <div className="card">
       <div className="category-badge">{formattedCategory}</div>
@@ -131,6 +133,14 @@ export default function EventCard({
                 Eliminar
               </button>
             </div>
+            {onViewAttendees && (
+              <button
+                className="attendees-btn"
+                onClick={() => onViewAttendees(id)}
+              >
+                Ver asistentes
+              </button>
+            )}
           </>
         )}
       </div>

@@ -274,6 +274,7 @@ export default function EventForm({ mode = "create", initialData, onSubmit }) {
             <button className="ce-submit-btn">
               {mode === "edit" ? "Actualizar Evento" : "Crear Evento"}
             </button>
+            
           </form>
         </div>
       </main>

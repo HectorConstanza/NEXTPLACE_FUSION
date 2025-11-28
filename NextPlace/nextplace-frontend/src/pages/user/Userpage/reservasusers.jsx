@@ -3,6 +3,7 @@ import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import API from "../../../utils/api";
 import "./css/reservasusers.css";
+import BackButton from "../../../components/BackButton";
 
 export default function MisReservas() {
   const [reservas, setReservas] = useState([]);
@@ -32,6 +33,7 @@ export default function MisReservas() {
   return (
     <>
       <Navbar />
+
 
     <div className="reservas-container">
        <h1 className="reservas-header">Mis Reservas</h1>
@@ -77,7 +79,7 @@ export default function MisReservas() {
           </div>
         )}
       </div>
-
+  <BackButton label="Volver" />
       <Footer />
     </>
   );
