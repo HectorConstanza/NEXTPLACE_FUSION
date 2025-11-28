@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
-
+import API from "../../../utils/api";
 import "./css/reservasusers.css";
 
 export default function MisReservas() {
   const [reservas, setReservas] = useState([]);
 
-  useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const res = await API.get("/reservas/mias"); // Cambiar según tu backend
-        setReservas(res.data);
-      } catch (err) {
-        console.error("Error cargando reservas", err);
-      }
-    };
+  const cargarReservas = async () => {
+    try {
+      const res = await API.get("/reservas/mias");
+      setReservas(res.data);
+    } catch (err) {
+      console.error("Error cargando reservas", err);
+    }
+  };
 
-    fetchReservas();
+  useEffect(() => {
+    cargarReservas();
   }, []);
+
+  const cancelarReserva = async (id) => {
+    try {
+      await API.post(`/reservas/cancel/${id}`);
+      cargarReservas();
+    } catch (err) {
+      console.error("Error cancelando", err);
+    }
+  };
 
   return (
     <>
@@ -33,33 +42,34 @@ export default function MisReservas() {
           <div className="reservas-grid">
             {reservas.map((reserva) => (
               <div key={reserva.id} className="reserva-card">
+
                 <img
-                  src={`http://localhost:4000/${reserva.evento.imagen}`}
-                  alt={reserva.evento.titulo}
+                  src={`http://localhost:4000/${reserva.Event?.imagen}`}
+                  alt={reserva.Event?.titulo}
                   className="reserva-img"
                 />
 
                 <div className="reserva-info">
-                  <h3>{reserva.evento.titulo}</h3>
+                  <h3>{reserva.Event?.titulo}</h3>
 
-                  <p>
-                    <strong>Fecha:</strong>{" "}
-                    {new Date(reserva.evento.fecha).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Hora:</strong>{" "}
-                    {reserva.evento.fecha.split("T")[1].slice(0, 5)}
-                  </p>
-                  <p>
-                    <strong>Cantidad:</strong> {reserva.cantidad}
-                  </p>
-                  <p>
-                    <strong>Total:</strong> ${reserva.total}
+                  <p><strong>Fecha:</strong>{" "}
+                    {new Date(reserva.Event?.fecha).toLocaleDateString()}
                   </p>
 
-                  <span className="reserva-estado">
-                    {reserva.evento.estado}
-                  </span>
+                  <p><strong>Cantidad:</strong> {reserva.cantidad}</p>
+
+                  <p><strong>Total:</strong> ${reserva.total}</p>
+
+                  <span className="reserva-estado">{reserva.estado}</span>
+
+                  {reserva.estado !== "cancelada" && (
+                    <button
+                      className="btn-cancelar"
+                      onClick={() => cancelarReserva(reserva.id)}
+                    >
+                      Cancelar Reserva
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

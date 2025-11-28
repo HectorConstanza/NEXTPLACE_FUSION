@@ -135,7 +135,7 @@ export const getEventById = async (req, res) => {
         "cupos",
         "cuposDispo",
         "costo",
-        "imagen",        // 👈🔥 ESTE ES EL CAMPO QUE NECESITAS
+        "imagen",        
         "organizador_id"
       ]
     });
@@ -144,7 +144,7 @@ export const getEventById = async (req, res) => {
       return res.status(404).json({ message: "Evento no encontrado" });
     }
 
-    res.json(event.toJSON());    // 👈🔥 ENVÍA DATOS LIMPIOS A REACT
+    res.json(event.toJSON());    
 
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -170,7 +170,7 @@ export const getEventsByOrganizer = async (req, res) => {
         "cupos",
         "cuposDispo",
         "costo",
-        "imagen" // ← ya estaba correcto 👌
+        "imagen" 
       ]
     });
 

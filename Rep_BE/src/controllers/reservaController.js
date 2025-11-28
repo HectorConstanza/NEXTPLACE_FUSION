@@ -6,7 +6,7 @@ import { HistoricoReserva } from "../models/HistoricoReserva.js";
 import { sequelize } from "../config/db.js";
 
 // ======================================================
-// 🟢 Crear reserva con cantidad múltiple
+// Reserva con cantidad múltiple
 // ======================================================
 export const createReserva = async (req, res) => {
   const t = await sequelize.transaction();
@@ -90,7 +90,39 @@ export const createReserva = async (req, res) => {
 };
 
 // ======================================================
-// 🔴 Cancelar reserva
+// Obtener reservas del usuario autenticado
+// ======================================================
+export const getMisReservas = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const reservas = await Reserva.findAll({
+      where: { usuario_id: userId },
+      include: [
+        {
+          model: Event,
+          attributes: ["id", "titulo", "fecha", "imagen", "costo"]
+        }
+      ],
+      order: [["fechaReserva", "DESC"]]
+    });
+
+    // Agregar total calculado
+    const response = reservas.map((res) => ({
+      ...res.toJSON(),
+      total: res.cantidad * (res.Event?.costo || 0),
+    }));
+
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener reservas" });
+  }
+};
+
+
+
+// ======================================================
+// Cancelar reserva
 // ======================================================
 export const cancelReserva = async (req, res) => {
   const t = await sequelize.transaction();

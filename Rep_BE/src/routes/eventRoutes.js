@@ -13,25 +13,25 @@ import { uploadEventoImg } from "../config/multer.js";
 
 const router = express.Router();
 
-// ⭐ Crear evento
+// Crear evento
 router.post("/", uploadEventoImg.single("imagen"), createEvent);
 
-// ⭐ Obtener todos los eventos
+// Obtener todos los eventos
 router.get("/", getEvents);
 
-// ⭐ Filtrar eventos
+// Filtrar eventos
 router.post("/filter", getFilteredEvents);
 
-// ⭐ Obtener categorías (RUTA ESTÁTICA — DEBE IR ANTES DE :id)
+// Obtener categorías (RUTA ESTÁTICA — DEBE IR ANTES DE :id)
 router.get("/categories", getCategories);
 
-// ⭐ Eventos por organizador (DEBE IR ANTES DE :id)
+// Eventos por organizador (DEBE IR ANTES DE :id)
 router.get("/organizer/:organizador_id", getEventsByOrganizer);
 
-// ⭐ Obtener un evento por ID (RUTA DINÁMICA)
+// Obtener un evento por ID (RUTA DINÁMICA)
 router.get("/:id", getEventById);
 
-// ⭐ Actualizar evento
+// Actualizar evento
 router.put("/:id", updateEvent);
 
 export default router;

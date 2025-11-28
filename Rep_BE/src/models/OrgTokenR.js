@@ -13,7 +13,7 @@ export const OrgTokenR = sequelize.define("OrgTokenR", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: "organizador", // nombre exacto de tu tabla Organizer
+      model: "organizador", 
       key: "id"
     },
     onDelete: "CASCADE"

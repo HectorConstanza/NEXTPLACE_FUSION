@@ -4,7 +4,7 @@ import { User, UserTokenR } from "../models/index.js";
 import { sendEmail } from "../services/emailService.js";
 
 // ======================================================
-// 💌 FORGOT PASSWORD
+//  FORGOT PASSWORD
 // ======================================================
 export const forgotPassword = async (req, res) => {
   try {

@@ -29,7 +29,7 @@ export const Event = sequelize.define("Event", {
   },
 
   imagen: {
-    type: DataTypes.STRING,   // 🔥 SÍ, AQUÍ ESTÁ DECLARADO (antes este podía fallar)
+    type: DataTypes.STRING,   
     allowNull: true
   },
 
@@ -58,7 +58,7 @@ export const Event = sequelize.define("Event", {
     allowNull: false
   }
 }, {
-  tableName: "evento",        // 🔥 Esto es CLAVE — evita errores de mayúsculas
+  tableName: "evento",        
   timestamps: true,
   paranoid: true
 });
