@@ -96,7 +96,7 @@ export default function Navbar() {
         <div className="navbar-links">
           <a onClick={goToEvents}>Eventos</a>
           <a onClick={goToOrganizers}>Organizadores</a>
-          <a>Reservas</a>
+          {user && <a>Reservas</a>}
         </div>
 
         {/* ACTIONS */}
